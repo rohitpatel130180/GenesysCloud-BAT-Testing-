@@ -8,3 +8,5 @@ test("The Playwright site", async({ playwrightSiteActions, page }) => {
     annotate('Then I select the community page and verify the correct header displays')
     await playwrightSiteActions.visitCommunityPage()
 })
+
+
