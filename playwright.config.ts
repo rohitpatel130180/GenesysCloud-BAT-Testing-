@@ -32,13 +32,25 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     testIdAttribute: 'data-test',
     trace: 'on-first-retry',
+    permissions: ['microphone', 'camera'],
+
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: [
+            '--use-fake-device-for-media-stream',
+            '--use-fake-ui-for-media-stream',
+            // '--use-file-for-fake-audio-capture=/path/to/your/audio.wav',
+          ],
+        },
+      
+       },
+      
     }
 
     // {
