@@ -1,4 +1,4 @@
-import { test, expect } from "../../src/fixtures/genesys-fixtures"
+import { test, expect } from "../../../src/fixtures/genesys-fixtures"
 
 test('test', async ({ page }) => {
 
