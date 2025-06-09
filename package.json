@@ -6,7 +6,7 @@
   "scripts": {
     "open": "npx playwright test --ui",
     "headed": "npx playwright test --headed",
-    "start": "npx playwright test"
+    "start": "npx playwright test/ui/WebChatSpecs"
   },
   "repository": {
     "type": "git",

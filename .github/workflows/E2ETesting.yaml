@@ -20,5 +20,5 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests/ui/Web_chat.spec.ts
+      - name: Run Playwright tests
         run: pnpm start
