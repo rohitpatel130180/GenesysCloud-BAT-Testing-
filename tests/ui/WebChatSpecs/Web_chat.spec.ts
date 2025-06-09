@@ -3,7 +3,7 @@ import { test, expect } from "../../../src/fixtures/genesys-fixtures"
 import { annotate } from '../../../src/utils/shared/annotate';
 
 
-test.only(' User navigating through Bereavement intent flow ', async ({ page, webChatUtils, webChatActions }) => {
+test(' User navigating through Bereavement intent flow ', async ({ page, webChatUtils, webChatActions }) => {
 
   // test.slow(); 
   test.setTimeout(60000); // Set timeout to 60 seconds for this test
