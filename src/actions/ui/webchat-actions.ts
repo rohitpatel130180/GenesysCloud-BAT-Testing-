@@ -1,5 +1,7 @@
 import { Page, expect } from '@playwright/test'
 import { WebChatUtils } from '../../utils/ui/web-chet-utils'
+import { webChatTestData } from '../../test-data/web-chat';
+const webChatData = webChatTestData[0];
 
 export class WebChatActions {
     readonly webChatUtils: WebChatUtils;
@@ -31,6 +33,7 @@ export class WebChatActions {
         const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
         const currentHour = now.getHours();
         let isBusinessHours = false;
+        console.log(`Current Day: ${dayOfWeek}, Current Hour: ${currentHour}`); 
         // Check if it's a weekday (Monday to Friday)
         if (dayOfWeek >= 1 && dayOfWeek <= 5) {
             if (currentHour >= 8 && currentHour < 18) { // 8 AM to 5:59 PM (before 6 PM)
@@ -66,10 +69,23 @@ export class WebChatActions {
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Do you have a smart meter?").trim());
-        await this.webChatUtils.userClickYesButton();
+        if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes") {
+            expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Do you have a smart meter?").trim());
+            await this.webChatUtils.userClickYesButton();
+            if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes") {
+                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
+                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+            }
+            else {
+                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
+                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+            }
 
-
+        }
+        else {
+            expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 6pm, Saturday 9am to 2pm).Our support team aren't around right now, but I can help..").trim());
+            expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        }
     }
     /**
      * This method simulates a user interaction where they confirm they are an existing OVO customer
@@ -79,17 +95,18 @@ export class WebChatActions {
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Are you an OVO customer?").trim());
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your first name?").trim());
-        await this.webChatUtils.sendMessage('Rohit');
+        console.log("First Name: " + webChatData.firstName);
+        await this.webChatUtils.sendMessage(webChatData.firstName);
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your last name?").trim());
-        await this.webChatUtils.sendMessage('Patel');
+        await this.webChatUtils.sendMessage(webChatData.lastName);
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm the email address of your account. If you don't know your email address, enter #").trim());
-        await this.webChatUtils.sendMessage('#');
+        await this.webChatUtils.sendMessage(webChatData.email);
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm your account number. If you don't know your account number, enter #").trim());
-        await this.webChatUtils.sendMessage('#');
+        await this.webChatUtils.sendMessage(webChatData.accountNumber);
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm your postcode.").trim());
-        await this.webChatUtils.sendMessage('ab1 4bc');
+        await this.webChatUtils.sendMessage(webChatData.postCode);
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm your date of birth using DD-MM-YYYY format. For example, 01-05-1972.").trim());
-        await this.webChatUtils.sendMessage('01-04-2000');
+        await this.webChatUtils.sendMessage(webChatData.dateOfBirth);
     }
     /**
      * This method simulates a user interaction where they confirm they are not an existing OVO customer
@@ -99,11 +116,11 @@ export class WebChatActions {
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Are you an OVO customer?").trim());
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your first name?").trim());
-        await this.webChatUtils.sendMessage('Rohit');
+        await this.webChatUtils.sendMessage(webChatData.firstName);
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your last name?").trim());
-        await this.webChatUtils.sendMessage('Patel');
+        await this.webChatUtils.sendMessage(webChatData.lastName);
         expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your email, so we can keep track of our chat? If you don't have an email, enter #").trim());
-        await this.webChatUtils.sendMessage('#');
+        await this.webChatUtils.sendMessage(webChatData.email);
     }
 }
 

@@ -1,7 +1,8 @@
 import type { Page } from "@playwright/test"
 import { expect } from "@playwright/test"
+import { webChatTestData } from "../../test-data/web-chat";     
 import exp from "constants";
-
+ const webChatData = webChatTestData[0];
 //GenesySiteSelectors class will identify selectors for login and logout
 export class WebChatSelectors {
     private readonly page: Page;
@@ -56,18 +57,23 @@ export class WebChatSelectors {
 export class WebChatUtils {
     private readonly page: Page;
     readonly webChatSelectors: WebChatSelectors;
+   
     constructor(page: Page) {
         this.page = page;
         this.webChatSelectors = new WebChatSelectors(this.page);
+        
         // This locator targets the <p> tag inside the iframe using the direct contentFrame() approach
 
     }
     async goToWebChatUrl() {
-        await this.page.goto('https://messenger-tests.mit-nonprod.ovotech.org.uk/test-pages/wm-deployment-test.html');
+        //await this.page.goto('https://messenger-tests.mit-nonprod.ovotech.org.uk/test-pages/wm-deployment-test.html');
+        //const webChatData = webChatTestData[0];
+        await this.page.goto(webChatData.url);
     }
 
     async enterWebChatCredentials() {
-        await this.webChatSelectors.getDeploymentId().fill("eca22cee-eb5c-4376-bc81-509a1fc07ae5");
+       // await this.webChatSelectors.getDeploymentId().fill("eca22cee-eb5c-4376-bc81-509a1fc07ae5");
+           await this.webChatSelectors.getDeploymentId().fill(webChatData.deploymentId);          
     }
     async clickLoadDeploymentButton() {
         await this.webChatSelectors.getLoadDeploymentButton().click();
@@ -81,7 +87,6 @@ export class WebChatUtils {
     async verifyWebchatFrameOpen() {
         expect(this.webChatSelectors.getFrameLocator()).toBeVisible();
     }
-
     async sendMessage(msg: string) {
         await this.webChatSelectors.getSendMessage().fill(msg);       
         await this.webChatSelectors.getSendMessageButton().click();
@@ -120,8 +125,22 @@ export class WebChatUtils {
     //     return replyMessage;
     // }
     async verifyChatBoatYouSaidResponse() {
-        const replyMessage = await this.webChatSelectors.getChatbotMessagesRoboSaid().textContent();
-        return replyMessage;
+        // const replyMessage = await this.webChatSelectors.getChatbotMessagesRoboSaid().textContent();
+        // return replyMessage;
+        const messagesLocator = this.webChatSelectors.getChatBotMessageYouSaid();
+        const beforeCount = await messagesLocator.count();  
+        // Wait for a new message to appear (polling)
+        await expect.poll(async () => await messagesLocator.count(), {
+            timeout: 5000,
+            // intervals: [500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000 , 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000]
+            intervals: [500]
+        }).toBeGreaterThan(beforeCount);
+        // Now get the last message's text
+        const lastMessage = messagesLocator.last();
+        await expect(lastMessage).toBeVisible({ timeout: 5000 });   
+        const text = await lastMessage.textContent();
+        console.log(text);
+        return text?.trim();
     }
     async userClickYesButton() {
         await this.webChatSelectors.getYesButton().waitFor({ state: 'visible' });
