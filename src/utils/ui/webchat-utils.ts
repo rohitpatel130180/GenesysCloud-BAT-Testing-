@@ -1,9 +1,9 @@
 import type { Page } from "@playwright/test"
 import { expect } from "@playwright/test"
-import { webChatTestData } from "../../test-data/web-chat";     
+import { webChatTestData } from "../../test-data/web-chat";
 import exp from "constants";
- const webChatData = webChatTestData[0];
-//GenesySiteSelectors class will identify selectors for login and logout
+const webChatData = webChatTestData[0];
+
 export class WebChatSelectors {
     private readonly page: Page;
     constructor(page: Page) {
@@ -49,7 +49,6 @@ export class WebChatSelectors {
         return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Send your message' });
     }
 
-
 }
 
 //GenesysSitesUtils class will be holding common utilities methods that can be used across test case
@@ -57,12 +56,10 @@ export class WebChatSelectors {
 export class WebChatUtils {
     private readonly page: Page;
     readonly webChatSelectors: WebChatSelectors;
-   
+
     constructor(page: Page) {
         this.page = page;
-        this.webChatSelectors = new WebChatSelectors(this.page);
-        
-        // This locator targets the <p> tag inside the iframe using the direct contentFrame() approach
+        this.webChatSelectors = new WebChatSelectors(this.page);       
 
     }
     async goToWebChatUrl() {
@@ -72,8 +69,8 @@ export class WebChatUtils {
     }
 
     async enterWebChatCredentials() {
-       // await this.webChatSelectors.getDeploymentId().fill("eca22cee-eb5c-4376-bc81-509a1fc07ae5");
-           await this.webChatSelectors.getDeploymentId().fill(webChatData.deploymentId);          
+        // await this.webChatSelectors.getDeploymentId().fill("eca22cee-eb5c-4376-bc81-509a1fc07ae5");
+        await this.webChatSelectors.getDeploymentId().fill(webChatData.deploymentId);
     }
     async clickLoadDeploymentButton() {
         await this.webChatSelectors.getLoadDeploymentButton().click();
@@ -88,7 +85,7 @@ export class WebChatUtils {
         expect(this.webChatSelectors.getFrameLocator()).toBeVisible();
     }
     async sendMessage(msg: string) {
-        await this.webChatSelectors.getSendMessage().fill(msg);       
+        await this.webChatSelectors.getSendMessage().fill(msg);
         await this.webChatSelectors.getSendMessageButton().click();
         await this.webChatSelectors.getChatBotMessageYouSaid().last().waitFor({ state: 'visible' });
         //await this.page.waitForTimeout(2000);
@@ -102,7 +99,7 @@ export class WebChatUtils {
         return LastMessageText?.trim();
 
     }*/
-    async getChatbotRoboResponse() {
+    async verifyChatbotRoboSaidResponse() {
         const messagesLocator = this.webChatSelectors.getChatbotMessagesRoboSaid();
         const beforeCount = await messagesLocator.count();
         // Wait for a new message to appear (polling)
@@ -128,7 +125,7 @@ export class WebChatUtils {
         // const replyMessage = await this.webChatSelectors.getChatbotMessagesRoboSaid().textContent();
         // return replyMessage;
         const messagesLocator = this.webChatSelectors.getChatBotMessageYouSaid();
-        const beforeCount = await messagesLocator.count();  
+        const beforeCount = await messagesLocator.count();
         // Wait for a new message to appear (polling)
         await expect.poll(async () => await messagesLocator.count(), {
             timeout: 5000,
@@ -137,7 +134,7 @@ export class WebChatUtils {
         }).toBeGreaterThan(beforeCount);
         // Now get the last message's text
         const lastMessage = messagesLocator.last();
-        await expect(lastMessage).toBeVisible({ timeout: 5000 });   
+        await expect(lastMessage).toBeVisible({ timeout: 5000 });
         const text = await lastMessage.textContent();
         console.log(text);
         return text?.trim();

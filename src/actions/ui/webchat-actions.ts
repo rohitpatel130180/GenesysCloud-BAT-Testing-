@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test'
-import { WebChatUtils } from '../../utils/ui/web-chet-utils'
+import { WebChatUtils } from '../../utils/ui/webchat-utils'
 import { webChatTestData } from '../../test-data/web-chat';
 const webChatData = webChatTestData[0];
 
@@ -58,33 +58,33 @@ export class WebChatActions {
      * It checks the chatbot's responses for the initial greeting and the security questions prompt.
      */
     async userVerifyGreetingsInBusinessHours() {
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
     }
     /**
      * This method verifies the greetings displayed to the user when they are outside business hours.
      * It checks the chatbot's responses for the initial greeting and a specific question about Pay As You Go meters.
      */
     async userVerifyGreetingsOutsideBusinessHours() {
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
         if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes") {
-            expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Do you have a smart meter?").trim());
+            expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
             await this.webChatUtils.userClickYesButton();
             if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes") {
-                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
-                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+                expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
+                expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
             }
             else {
-                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
-                expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+                expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
+                expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
             }
 
         }
         else {
-            expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 6pm, Saturday 9am to 2pm).Our support team aren't around right now, but I can help..").trim());
-            expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+            expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 6pm, Saturday 9am to 2pm).Our support team aren't around right now, but I can help..").trim());
+            expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
         }
     }
     /**
@@ -92,20 +92,20 @@ export class WebChatActions {
      * and provide their personal details such as first name, last name, email, account number, postcode, and date of birth.
      */
     async userExistingCustomerAndProvidePersonalDetails() {
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Are you an OVO customer?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Are you an OVO customer?").trim());
         await this.webChatUtils.userClickYesButton();
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your first name?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your first name?").trim());
         console.log("First Name: " + webChatData.firstName);
         await this.webChatUtils.sendMessage(webChatData.firstName);
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your last name?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your last name?").trim());
         await this.webChatUtils.sendMessage(webChatData.lastName);
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm the email address of your account. If you don't know your email address, enter #").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm the email address of your account. If you don't know your email address, enter #").trim());
         await this.webChatUtils.sendMessage(webChatData.email);
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm your account number. If you don't know your account number, enter #").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm your account number. If you don't know your account number, enter #").trim());
         await this.webChatUtils.sendMessage(webChatData.accountNumber);
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm your postcode.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm your postcode.").trim());
         await this.webChatUtils.sendMessage(webChatData.postCode);
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Please confirm your date of birth using DD-MM-YYYY format. For example, 01-05-1972.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm your date of birth using DD-MM-YYYY format. For example, 01-05-1972.").trim());
         await this.webChatUtils.sendMessage(webChatData.dateOfBirth);
     }
     /**
@@ -113,13 +113,13 @@ export class WebChatActions {
      * and provide their personal details such as first name, last name, and email.
      */
     async userNotExistingCustomerAndProvidePersonalDetails() {
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("Are you an OVO customer?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Are you an OVO customer?").trim());
         await this.webChatUtils.userClickNoButton();
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your first name?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your first name?").trim());
         await this.webChatUtils.sendMessage(webChatData.firstName);
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your last name?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your last name?").trim());
         await this.webChatUtils.sendMessage(webChatData.lastName);
-        expect(await this.webChatUtils.getChatbotRoboResponse()).toBe(("What is your email, so we can keep track of our chat? If you don't have an email, enter #").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your email, so we can keep track of our chat? If you don't have an email, enter #").trim());
         await this.webChatUtils.sendMessage(webChatData.email);
     }
 }
