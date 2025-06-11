@@ -1,6 +1,6 @@
 import { TIMEOUT } from "dns";
-import { test, expect } from "../../../src/fixtures/genesys-fixtures"
-import { annotate } from '../../../src/utils/shared/annotate';
+import { test, expect } from "../../../../src/fixtures/genesys-fixtures"
+import { annotate } from '../../../../src/utils/shared/annotate';
 
 
 test(' User navigating through Bereavement intent flow ', async ({ page, webChatUtils, webChatActions }) => {
