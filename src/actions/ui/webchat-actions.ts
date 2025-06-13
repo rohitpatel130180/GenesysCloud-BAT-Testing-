@@ -81,21 +81,24 @@ export class WebChatActions {
      * It checks the chatbot's responses for the initial greeting and a specific question about Pay As You Go meters.
      */
     async userVerifyGreetingsOutsideBusinessHours(isSmartBusinessHours: boolean) {
+        console.log(`isSmartBusinessHours: ${isSmartBusinessHours}`);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
         if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes") {
             expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
             await this.webChatUtils.userClickYesButton();
-            if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes" || await this.webChatUtils.verifyChatBoatYouSaidResponse() === "No") {
-                if (isSmartBusinessHours) {
-                    expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
-                    expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
-                }
-                else {
-                    expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
-                }
+            //if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes" || await this.webChatUtils.verifyChatBoatYouSaidResponse() === "No") {
+            if (isSmartBusinessHours) {
+                console.log("Inside Smart Business Hours");
+                expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
             }
+            else {
+                console.log("Outside Smart Business Hours");
+                expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
+                expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+            }
+            //}
         }
         else {
             expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 6pm, Saturday 9am to 2pm).Our support team aren't around right now, but I can help..").trim());
