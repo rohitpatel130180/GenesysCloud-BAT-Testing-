@@ -28,8 +28,50 @@ export class WebChatActions {
      * This method checks the current time and day to determine if the user is within business hours.
      * If within business hours, it verifies the greetings for opening hours; otherwise, it verifies the greetings for outside opening hours.
      */
-    async userVerifyGreetings() {
+    async checkIsUserWithinBusinessHours() {
         const now = new Date();
+        const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+        const currentHour = now.getHours();
+        let isBusinessHours = false;
+        console.log(`Current Day: ${dayOfWeek}, Current Hour: ${currentHour}`);
+        // Check for standard business hours // Check if it's a weekday (Monday to Friday)
+        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+            if (currentHour >= 8 && currentHour < 18) { // 8 AM to 5:59 PM (before 6 PM)
+                isBusinessHours = true;
+            }
+        }
+        // Check if it's Saturday
+        else if (dayOfWeek === 6) {
+            if (currentHour >= 9 && currentHour < 14) { // 9 AM to 1:59 PM (before 2 PM)
+                isBusinessHours = true;
+            }
+        }
+        return isBusinessHours;
+    }
+    async checkIsUserWithinPaygoBusinessHours() {
+        const now = new Date();
+        const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+        const currentHour = now.getHours();
+        let isPaygoBusinessHours = false;
+        console.log(`Current Day: ${dayOfWeek}, Current Hour: ${currentHour}`);
+        //Check for Paygo business hours  // Check if it's a weekday (Monday to Friday)
+        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+            if (currentHour >= 8 && currentHour < 20) { // 8 AM to 7:59 PM (before 8 PM)
+                isPaygoBusinessHours = true;
+            }
+        }
+        // Check if it's Saturday
+        else if (dayOfWeek === 6 || dayOfWeek === 7) {
+            if (currentHour >= 9 && currentHour < 17) { // 9 AM to 4:59 PM (before 5 PM)
+                isPaygoBusinessHours = true;
+            }
+        }
+        return isPaygoBusinessHours;
+    }
+    async userVerifyGreetings() {
+        const isBusinessHours = await this.checkIsUserWithinBusinessHours();
+        const isPaygoBusinessHours = await this.checkIsUserWithinPaygoBusinessHours();
+        /*const now = new Date();
         const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
         const currentHour = now.getHours();
         let isBusinessHours = false;
@@ -61,11 +103,13 @@ export class WebChatActions {
                 isSmartBusinessHours = true;
             }
         }
+            */
         if (isBusinessHours) {
             await this.userVerifyGreetingsInBusinessHours();
 
-        } else {
-            await this.userVerifyGreetingsOutsideBusinessHours(isSmartBusinessHours);
+        }
+        else {
+            await this.userVerifyGreetingsOutsideBusinessHours(isPaygoBusinessHours);
         }
     }
     /**
@@ -80,8 +124,8 @@ export class WebChatActions {
      * This method verifies the greetings displayed to the user when they are outside business hours.
      * It checks the chatbot's responses for the initial greeting and a specific question about Pay As You Go meters.
      */
-    async userVerifyGreetingsOutsideBusinessHours(isSmartBusinessHours: boolean) {
-        console.log(`isSmartBusinessHours: ${isSmartBusinessHours}`);
+    async userVerifyGreetingsOutsideBusinessHours(isPaygoBusinessHours: boolean) {
+        console.log(`isPaygoBusinessHours: ${isPaygoBusinessHours}`);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
@@ -89,7 +133,7 @@ export class WebChatActions {
             expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
             await this.webChatUtils.userClickYesButton();
             //if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes" || await this.webChatUtils.verifyChatBoatYouSaidResponse() === "No") {
-            if (isSmartBusinessHours) {
+            if (isPaygoBusinessHours) {
                 console.log("Inside Smart Business Hours");
                 expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
             }
