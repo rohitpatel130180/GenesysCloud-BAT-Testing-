@@ -12,6 +12,7 @@ test.only('test1', async ({ page }) => {
     await page.getByRole('link', { name: 'Collaborate/ Communicate' }).click();
     await page.goto('https://apps.euw2.pure.cloud/directory/#/activity');
     await page.waitForLoadState('domcontentloaded');
+    await page.getByRole('link', { name: 'Calls Panel Toggle, Panel Is' }).waitFor({ state: "visible" });
     await page.getByRole('link', { name: 'Calls Panel Toggle, Panel Is' }).click();
     await page.waitForLoadState('domcontentloaded');
     // await page.waitForLoadState('load');

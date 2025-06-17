@@ -12,7 +12,7 @@ import 'dotenv/config'
  */
 export default defineConfig({
 
-  testDir: './tests',
+  testDir: './tests/ui/WebChatSpecs', // Directory where your tests are located
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

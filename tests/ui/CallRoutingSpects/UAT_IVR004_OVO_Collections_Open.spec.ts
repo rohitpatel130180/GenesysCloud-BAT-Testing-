@@ -34,4 +34,14 @@ test("UAT_IVR004_OVO_Collection_Open Test", async ({ page,genesysSiteActions }) 
     annotate('And the system should log the refund request with mobile "07700900123"');
     
 })
-
+/* below are the steps for the Bereavement Intent Update-CCSD-62707.spec.ts file, which is not currently implemented
+ annotate("Given User navigates to the WebChat UI and logs in with valid credentials.");
+  annotate("And User checks that the initial greeting message from WebChat is displayed.");
+  annotate("And User confirms they are an OVO customer by clicking 'Yes' and provides personal details.");
+  annotate("When User specifies their query as 'Bereavement Intent Update-CCSD-62707'.");
+  annotate("Then User receives bereavement guidance from the chatbot.");
+  annotate("And User confirms they have already contacted OVO about the bereavement.");
+  annotate("And Chatbot asks if the user still needs help; user selects 'No'.");
+  annotate("And Chatbot asks if there is anything else; user selects 'No' again.");
+  annotate("Then Chatbot ends the conversation with a thank you message.");
+*/
