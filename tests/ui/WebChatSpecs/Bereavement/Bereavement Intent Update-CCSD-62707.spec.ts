@@ -3,15 +3,16 @@ import { test, expect } from "../../../../src/fixtures/genesys-fixtures"
 import { annotate } from '../../../../src/utils/shared/annotate';
 
 
-test('Bereavement_TC_01', async ({ webChatUtils, webChatActions }) => {
+test('CCSD-62707_TC_01', async ({ webChatUtils, webChatActions }) => {
   // test.slow(); 
   test.setTimeout(90000); // Set timeout to 60 seconds for this test 
-  await test.step("Open Web Messenger during working hours.", async () => { await webChatActions.userInitiateWebchat(); });
-  await test.step("Verify initial greeting message.", async () => { await webChatActions.userVerifyGreetings(); });
+  /*await test.step("Open Web Messenger during working hours.", async () => { await webChatActions.userInitiateWebchat(); });
+  await test.step("Verify initial greeting message.", async () => { await webChatActions.userNavigatesThroughPreIntentJourney(); });
   await test.step("Provide personnel details as an existing customer.", async () => { await webChatActions.userExistingCustomerAndProvidePersonalDetails(); });
   await test.step("Verify message from Web Messenger about customer's query.", async () => {
     expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
-  });
+  });*/
+  await test.step("User Open Webmessenger,Navigate to Pre_int_1.1 scenario", async () => { await webChatActions.preIntent_1_1(); });
   await test.step("Provide Bereavement Intent query as CCSD-62707.", async () => { await webChatUtils.sendMessage('My partner died'); });
   await test.step("Verify Web Messenger response..", async () => {
     expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("If you need to let us know that one of our customers has passed away, we’re here to help you through the next steps.");
@@ -34,15 +35,16 @@ test('Bereavement_TC_01', async ({ webChatUtils, webChatActions }) => {
   });
 
 });
-test('Bereavement_TC_02', async ({ webChatUtils, webChatActions }) => {
+test('CCSD-62707_TC_02', async ({ webChatUtils, webChatActions }) => {
   // test.slow(); 
   test.setTimeout(90000); // Set timeout to 60 seconds for this test  
-  await test.step("Open Web Messenger during working hours.", async () => { await webChatActions.userInitiateWebchat(); });
-  await test.step("Verify initial greeting message.", async () => { await webChatActions.userVerifyGreetings(); });
+  /*await test.step("Open Web Messenger during working hours.", async () => { await webChatActions.userInitiateWebchat(); });
+  await test.step("Verify initial greeting message.", async () => { await webChatActions.userNavigatesThroughPreIntentJourney(); });
   await test.step("Provide personnel details as an existing customer.", async () => { await webChatActions.userExistingCustomerAndProvidePersonalDetails(); });
   await test.step("Verify message from Web Messenger about customer's query.", async () => {
     expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
-  });
+  });*/
+  await test.step("User Open Webmessenger,Navigate to Pre_int_1.1 scenario", async () => { await webChatActions.preIntent_1_1(); });
   await test.step("Provide Bereavement Intent query as CCSD-62707.", async () => { await webChatUtils.sendMessage('My partner died'); });
   await test.step("Verify Web Messenger response..", async () => {
     expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("If you need to let us know that one of our customers has passed away, we’re here to help you through the next steps.");
@@ -66,15 +68,10 @@ test('Bereavement_TC_02', async ({ webChatUtils, webChatActions }) => {
   });
 
 });
-test('Bereavement_TC_03', async ({ webChatUtils, webChatActions }) => {
+test('CCSD-62707_TC_03', async ({ webChatUtils, webChatActions }) => {
   // test.slow(); 
-  test.setTimeout(90000); // Set timeout to 60 seconds for this test  
-  await test.step("Open Web Messenger during working hours.", async () => { await webChatActions.userInitiateWebchat(); });
-  await test.step("Verify initial greeting message.", async () => { await webChatActions.userVerifyGreetings(); });
-  await test.step("Provide personnel details as an existing customer.", async () => { await webChatActions.userExistingCustomerAndProvidePersonalDetails(); });
-  await test.step("Verify message from Web Messenger about customer's query.", async () => {
-    expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
-  });
+  test.setTimeout(90000); // Set timeout to 60 seconds for this test    
+  await test.step("User Open Webmessenger,Navigate to Pre_int_1.1 scenario", async () => { await webChatActions.preIntent_1_1(); });
   await test.step("Provide Bereavement Intent query as CCSD-62707.", async () => { await webChatUtils.sendMessage('My partner died'); });
   await test.step("Verify Web Messenger response..", async () => {
     expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("If you need to let us know that one of our customers has passed away, we’re here to help you through the next steps.");

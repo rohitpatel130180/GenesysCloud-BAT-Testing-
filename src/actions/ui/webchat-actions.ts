@@ -19,9 +19,7 @@ export class WebChatActions {
         await this.webChatUtils.goToWebChatUrl();
         await this.webChatUtils.enterWebChatCredentials();
         await this.webChatUtils.clickLoadDeploymentButton();
-        // await this.page.waitForTimeout(3000);
         await this.webChatUtils.verifyOpenMessengerButton();
-        // await this.page.waitForTimeout(3000);
         await this.webChatUtils.openWebMessenger();
     }
     /**
@@ -68,55 +66,21 @@ export class WebChatActions {
         }
         return isPaygoBusinessHours;
     }
-    async userVerifyGreetings() {
+    async userNavigatesThroughPreIntentJourney() {
         const isBusinessHours = await this.checkIsUserWithinBusinessHours();
         const isPaygoBusinessHours = await this.checkIsUserWithinPaygoBusinessHours();
-        /*const now = new Date();
-        const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-        const currentHour = now.getHours();
-        let isBusinessHours = false;
-        let isSmartBusinessHours = false;
-        console.log(`Current Day: ${dayOfWeek}, Current Hour: ${currentHour}`);
-        // Check for standard business hours
-        // Check if it's a weekday (Monday to Friday)
-        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-            if (currentHour >= 8 && currentHour < 18) { // 8 AM to 5:59 PM (before 6 PM)
-                isBusinessHours = true;
-            }
-        }
-        // Check if it's Saturday
-        else if (dayOfWeek === 6) {
-            if (currentHour >= 9 && currentHour < 14) { // 9 AM to 1:59 PM (before 2 PM)
-                isBusinessHours = true;
-            }
-        }
-        //Check for smart business hours
-        // Check if it's a weekday (Monday to Friday)
-        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-            if (currentHour >= 8 && currentHour < 20) { // 8 AM to 7:59 PM (before 8 PM)
-                isSmartBusinessHours = true;
-            }
-        }
-        // Check if it's Saturday
-        else if (dayOfWeek === 6 || dayOfWeek === 7) {
-            if (currentHour >= 9 && currentHour < 17) { // 9 AM to 4:59 PM (before 5 PM)
-                isSmartBusinessHours = true;
-            }
-        }
-            */
         if (isBusinessHours) {
-            await this.userVerifyGreetingsInBusinessHours();
-
+            await this.userJourneyInBusinessHours();
         }
         else {
-            await this.userVerifyGreetingsOutsideBusinessHours(isPaygoBusinessHours);
+            await this.userJourneyOutsideBusinessHours(isPaygoBusinessHours);
         }
     }
     /**
      * This method verifies the greetings displayed to the user when they are within business hours.
      * It checks the chatbot's responses for the initial greeting and the security questions prompt.
      */
-    async userVerifyGreetingsInBusinessHours() {
+    async userJourneyInBusinessHours() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
     }
@@ -124,26 +88,26 @@ export class WebChatActions {
      * This method verifies the greetings displayed to the user when they are outside business hours.
      * It checks the chatbot's responses for the initial greeting and a specific question about Pay As You Go meters.
      */
-    async userVerifyGreetingsOutsideBusinessHours(isPaygoBusinessHours: boolean) {
+    async userJourneyOutsideBusinessHours(isPaygoBusinessHours: boolean) {
         console.log(`isPaygoBusinessHours: ${isPaygoBusinessHours}`);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
-        if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes") {
+        if (await this.webChatUtils.verifyChatBotYouSaidResponse() === "Yes") {
             expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
             await this.webChatUtils.userClickYesButton();
             //if (await this.webChatUtils.verifyChatBoatYouSaidResponse() === "Yes" || await this.webChatUtils.verifyChatBoatYouSaidResponse() === "No") {
             if (isPaygoBusinessHours) {
-                console.log("Inside Smart Business Hours");
+                console.log("Inside Paygo Business Hours");
                 expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
             }
             else {
-                console.log("Outside Smart Business Hours");
+                console.log("Outside Paygo Business Hours");
                 expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
                 expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
             }
-            //}
         }
+
         else {
             expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 6pm, Saturday 9am to 2pm).Our support team aren't around right now, but I can help..").trim());
             expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
@@ -168,6 +132,7 @@ export class WebChatActions {
         await this.webChatUtils.sendMessage(webChatData.postCode);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm your date of birth using DD-MM-YYYY format. For example, 01-05-1972.").trim());
         await this.webChatUtils.sendMessage(webChatData.dateOfBirth);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
     }
     /**
      * This method simulates a user interaction where they confirm they are not an existing OVO customer
@@ -182,6 +147,90 @@ export class WebChatActions {
         await this.webChatUtils.sendMessage(webChatData.lastName);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your email, so we can keep track of our chat? If you don't have an email, enter #").trim());
         await this.webChatUtils.sendMessage(webChatData.email);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
     }
+
+    async preIntent_1_1() {
+        await this.userInitiateWebchat();
+        await this.userJourneyInBusinessHours();
+        await this.userExistingCustomerAndProvidePersonalDetails();
+
+    }
+    async preIntent_1_2() {
+        await this.userInitiateWebchat();
+        await this.userJourneyInBusinessHours();
+        await this.userNotExistingCustomerAndProvidePersonalDetails();
+
+    }
+    async preIntent_2_1() {
+        await this.userInitiateWebchat();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        await this.userExistingCustomerAndProvidePersonalDetails();
+    }
+    async preIntent_2_2() {
+        await this.userInitiateWebchat();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        await this.userNotExistingCustomerAndProvidePersonalDetails();
+    }
+    async preIntent_2_3() {
+        await this.userInitiateWebchat();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        await this.userExistingCustomerAndProvidePersonalDetails();
+    }
+    async preIntent_2_4() {
+        await this.userInitiateWebchat();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 8pm, Saturday and Sunday 9am to 5pm).Our support team aren't around right now, but I can help..").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        await this.userNotExistingCustomerAndProvidePersonalDetails();
+    }
+    async preIntent_2_5() {
+        await this.userInitiateWebchat();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        await this.webChatUtils.userClickNoButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 6pm, Saturday 9am to 2pm).Our support team aren't around right now, but I can help..").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        await this.userExistingCustomerAndProvidePersonalDetails();
+    }
+    async preIntent_2_6() {
+        await this.userInitiateWebchat();
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        await this.webChatUtils.userClickNoButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("You've reached us outside of our opening hours (weekdays 8am to 6pm, Saturday 9am to 2pm).Our support team aren't around right now, but I can help..").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        await this.userNotExistingCustomerAndProvidePersonalDetails();
+    }
+
+
+
 }
+
 

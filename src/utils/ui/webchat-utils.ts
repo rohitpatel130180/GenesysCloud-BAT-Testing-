@@ -115,15 +115,8 @@ export class WebChatUtils {
         const text = await lastMessage.textContent();
         console.log(text);
         return text?.trim();
-    }
-
-    // async verifyChatBotYouSaidResponse() {
-    //     const replyMessage = await this.webChatSelectors.getChatBotMessageYouSaid().textContent();
-    //     return replyMessage;
-    // }
-    async verifyChatBoatYouSaidResponse() {
-        // const replyMessage = await this.webChatSelectors.getChatbotMessagesRoboSaid().textContent();
-        // return replyMessage;
+    }    
+    async verifyChatBotYouSaidResponse() {        
         const messagesLocator = this.webChatSelectors.getChatBotMessageYouSaid();
         const beforeCount = await messagesLocator.count();
         // Wait for a new message to appear (polling)
