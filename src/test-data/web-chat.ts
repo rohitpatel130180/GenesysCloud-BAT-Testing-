@@ -1,4 +1,13 @@
-import { url } from "inspector";
+export interface WebChatTestData {
+    url: string;
+    deploymentId: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    accountNumber: string;
+    postCode: string;
+    dateOfBirth: string;
+}
 
 export const webChatTestData = [
     {

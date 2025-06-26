@@ -12,6 +12,28 @@ Clone the repo
 ## General Layout:
 The layout chosen is to have tests live in their own directory situated in the root.
 We then have a src directory that holds the code needed to write the tests. E.G, fixtures, utils, annotations etc.
+### Naming Principals:
+## Files/variables/functions should be as camelCase:
+    Definition:
+        The first letter of the first word is lowercase.
+        The first letter of subsequent words is uppercase.
+        There are no spaces or hyphens between words.
+    Examples: 
+        Files: payAsYouGo.spec.ts
+        Variables: userName, productPrice, isLoggedIn
+        Functions/Methods: calculateTotal, submitForm, getUserData
+
+## classes/interfaces should be as PascalCase:
+    Definition:
+        The first letter of every word is uppercase.
+        There are no spaces or hyphens between words
+    Examples:
+        Classes: User, Product, OrderService
+        Interfaces: IUser, IProduct, ApiResponse
+## Folder namem should be as snake_case:
+    Examples:
+        pay_as_you_go_specs  
+
 
 
 ### Fixtures:
@@ -47,3 +69,8 @@ They are essentially a collection of utils that together create an 'action' that
 A very simple example has been given. An example in a complex application might be the action of 
 making a payment. For example, we might have Utils for filling in personal details, card details etc. We
 could then combine them into one 'action' and that is then called in the spec file.
+
+
+    
+
+
