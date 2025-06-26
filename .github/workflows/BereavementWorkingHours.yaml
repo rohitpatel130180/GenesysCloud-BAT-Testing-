@@ -1,11 +1,11 @@
-name: EndToEndTesting
+name: Bereavement Working Hours E2E Testing
 on:
   push:
     branches:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '0 20 * * *'
+    - cron: '0 10 * * *'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,4 +23,4 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test tests/ui/WebChatSpecs
+        run: npx playwright test tests/ui/WebChatSpecs/Bereavement
