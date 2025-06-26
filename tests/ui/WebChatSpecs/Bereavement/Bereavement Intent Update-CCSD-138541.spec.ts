@@ -13,7 +13,7 @@ const workingHoursPreIntentJourney = [
   }
 ];
 
-test.describe.only('Withing Working Hours', () => {
+test.describe('Within Working Hours', () => {
   for (const preIntent of workingHoursPreIntentJourney) {
     test(`CCSD-138541_TC_01 --> ${preIntent.description}`, async ({ webChatUtils, webChatActions }) => {
       // test.slow(); 
