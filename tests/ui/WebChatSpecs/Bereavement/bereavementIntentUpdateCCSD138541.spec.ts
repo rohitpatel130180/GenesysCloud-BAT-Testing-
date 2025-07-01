@@ -24,7 +24,7 @@ test.describe('Within Working Hours', () => {
       await test.step("Verify message from Web Messenger about customer's query.", async () => {
         expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
       });*/
-      await test.step("User Open Webmessenger,Navigate to Pre_int_1.1 scenario", async () => { await webChatActions[preIntent.input](); });
+      await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });
       await test.step("Provide Bereavement Intent query as CCSD-62707.", async () => { await webChatUtils.sendMessage('Bereavement support'); });
       await test.step("Verify Web Messenger response..", async () => {
         expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("If you need to let us know that one of our customers has passed away, we’re here to help you through the next steps.");

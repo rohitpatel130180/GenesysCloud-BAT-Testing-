@@ -1,9 +1,10 @@
 import { test as base } from "@playwright/test";
-import { PlaywrightSiteActions } from "../actions/ui/playwright-site-actions"
 import { GenesysSitesUtils } from "../utils/ui/genesys-devsite-utils";
 import { GenesysSiteActions } from "../actions/ui/genesys-site-actions";
 import { WebChatSelectors, WebChatUtils } from "../utils/ui/webchat-utils";
 import { WebChatActions } from "../actions/ui/webchat-actions"
+import { PayAsYouGoUtils } from "../utils/ui/pay_as_you_go/pay_as_you_go_utils";
+import { MeterKeyOrCardUtils as Meter, MeterKeyOrCardUtils } from "../utils/ui/pay_as_you_go/meter_key_or_card_utils";
 
 
 type pages = {
@@ -14,6 +15,8 @@ type pages = {
     webChatUtils: WebChatUtils,
     webChatSelectors: WebChatSelectors,
     webChatActions: WebChatActions,
+    payAsYouGoUtils: PayAsYouGoUtils,
+    meterKeyOrCardUtils:MeterKeyOrCardUtils
 }
 
 export const test = base.extend<pages>({
@@ -35,6 +38,13 @@ export const test = base.extend<pages>({
     webChatActions: async ({ page }, use) => {
         await use(new WebChatActions(page));
     },
+    payAsYouGoUtils: async ({ page }, use) => {
+            await use(new PayAsYouGoUtils(page));
+        },
+        meterKeyOrCardUtils: async ({ page }, use) => {
+            await use(new MeterKeyOrCardUtils(page));
+        },
+       
 
 });
 
