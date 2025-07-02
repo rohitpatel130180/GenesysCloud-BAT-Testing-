@@ -81,8 +81,8 @@ export class WebChatActions {
      * It checks the chatbot's responses for the initial greeting and the security questions prompt.
      */
     async userJourneyInBusinessHours() {
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("We need to ask you some security questions so we can get you a response as quickly as possible.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I’m here to help.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("I just need a few details first for security. Providing this will help me get you the right support quickly, whether it's self-serve you're after or connecting you with the right team").trim());
     }
     /**
      * This method verifies the greetings displayed to the user when they are outside business hours.
@@ -164,8 +164,8 @@ export class WebChatActions {
     }
     async preIntent_2_1() {
         await this.userInitiateWebchat();
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right directin.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up?").trim());
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a smart meter?").trim());
@@ -175,7 +175,7 @@ export class WebChatActions {
     }
     async preIntent_2_2() {
         await this.userInitiateWebchat();
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right directin.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
@@ -186,7 +186,7 @@ export class WebChatActions {
     }
     async preIntent_2_3() {
         await this.userInitiateWebchat();
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right directin.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
@@ -198,7 +198,7 @@ export class WebChatActions {
     }
     async preIntent_2_4() {
         await this.userInitiateWebchat();
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right directin.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
@@ -210,7 +210,7 @@ export class WebChatActions {
     }
     async preIntent_2_5() {
         await this.userInitiateWebchat();
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right directin.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
@@ -220,7 +220,7 @@ export class WebChatActions {
     }
     async preIntent_2_6() {
         await this.userInitiateWebchat();
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hi there, I'm OVO's Digital assistant, I'm here to help you or point you in the right direction.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right directin.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up to add credit?").trim());
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");

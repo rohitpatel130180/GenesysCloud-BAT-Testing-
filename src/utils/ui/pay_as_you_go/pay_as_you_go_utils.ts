@@ -41,15 +41,17 @@ export class PayAsYouGoUtils {
         await this.webChatUtils.sendMessage("random text");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGoJourney_Data[0]["MSG-Sorry, Oops please select yes or no"]);
         await this.webChatUtils.userClickNoButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
     }
     async whatDoYouNeedHelpWithJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(whatDoYouNeedHelpWithJourney_Data[0]["QUE-What do you need help with?"]);
-        await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(whatDoYouNeedHelpWithJourney_Data[0]["MSG-Sorry. What do you need help with"]);
         expect(await this.payAsYouGoSelectors.getMeterKeyOrCardOption().isVisible()).toBeTruthy();
         expect(await this.payAsYouGoSelectors.getToppingUpOption().isVisible()).toBeTruthy();
         expect(await this.payAsYouGoSelectors.getOffSupplyOption().isVisible()).toBeTruthy();
         expect(await this.payAsYouGoSelectors.getDebtOption().isVisible()).toBeTruthy();
+        await this.webChatUtils.sendMessage("random text");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(whatDoYouNeedHelpWithJourney_Data[0]["MSG-Sorry. What do you need help with"]);
+        
     }
 
 

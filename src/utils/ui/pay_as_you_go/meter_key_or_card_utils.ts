@@ -13,15 +13,15 @@ export class MeterKeyOrCardSelectors {
     }
     getLostGasCardOption() {
         //return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Gas card. - Click to reply with' });
-        return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Gas Card. - Click to' })
+        return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Gas Card. - Click to' });
     }
     getLostElectricKeyOption() {
         // return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Electric key. - Click to reply with' });
-        return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Electric Key. - Click to' })
+        return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Electric Key. - Click to' });
     }
     getErrorCodeOption() {
         // return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Error Code. - Click to reply with' });
-        return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Error Code. - Click to reply' })
+        return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Error Code. - Click to reply' });
     }
 }
 
@@ -35,6 +35,7 @@ export class MeterKeyOrCardUtils {
         this.page = page;
         this.payAsYouGoSelectors = new PayAsYouGoSelectors(page);
         this.webChatUtils = new WebChatUtils(page);
+        this.meterKeyOrCardSelectors = new MeterKeyOrCardSelectors(page); 
 
     }
 
@@ -42,21 +43,20 @@ export class MeterKeyOrCardUtils {
     async meterKeyOrCardJourney() {
         await this.payAsYouGoSelectors.getMeterKeyOrCardOption().click();
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Please select from the following options:"]);
-        await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry. Please select from the following options:"]);
         expect(await this.meterKeyOrCardSelectors.getLostGasCardOption().isVisible()).toBeTruthy();
         expect(await this.meterKeyOrCardSelectors.getLostElectricKeyOption().isVisible()).toBeTruthy();
         expect(await this.meterKeyOrCardSelectors.getErrorCodeOption().isVisible()).toBeTruthy();
-
-       /* await expect(page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Gas Card. - Click to' })).toBeVisible();
-        await expect(page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Electric Key. - Click to' })).toBeVisible();
-        await expect(page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Error Code. - Click to reply' })).toBeVisible();
-        */
+        await this.webChatUtils.sendMessage("random text");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry. Please select from the following options:"]);
+        /* await expect(page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Gas Card. - Click to' })).toBeVisible();
+         await expect(page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Electric Key. - Click to' })).toBeVisible();
+         await expect(page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Error Code. - Click to reply' })).toBeVisible();
+         */
 
     }
     async userSelectLostGasCard() {
         await this.meterKeyOrCardSelectors.getLostGasCardOption().click();
-        expect(await this.webChatUtils.verifyChatBotYouSaidResponse).toBe("Lost Gas Card");
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Lost Gas Card");
 
     }
     async userSelectLostElectricKey() {
@@ -90,7 +90,7 @@ export class MeterKeyOrCardUtils {
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
     }
-    async ableToPickUpNewKeyCardJourneyOffSupplyYes() {
+    async ableToPickUpNewKeyCardNoJourneyOffSupplyYes() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["QUE-AreYouOrSomeoneAbleToPickUpNewKeyCard?"]);
         await this.webChatUtils.sendMessage("random text");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry. Say yes or no for Pick Up"]);
