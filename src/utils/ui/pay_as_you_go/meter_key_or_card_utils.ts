@@ -35,7 +35,7 @@ export class MeterKeyOrCardUtils {
         this.page = page;
         this.payAsYouGoSelectors = new PayAsYouGoSelectors(page);
         this.webChatUtils = new WebChatUtils(page);
-        this.meterKeyOrCardSelectors = new MeterKeyOrCardSelectors(page); 
+        this.meterKeyOrCardSelectors = new MeterKeyOrCardSelectors(page);
 
     }
 
@@ -129,9 +129,6 @@ export class MeterKeyOrCardUtils {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"]);
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-ALL messages"]);
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
-
     }
     async doYouHaveSmartMeterYesJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["QUE-Do you have a smart meter?"]);
@@ -139,8 +136,17 @@ export class MeterKeyOrCardUtils {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"]);
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+    }
+
+    async connectToPaygTeam() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-ALL messages"]);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
+
+    }
+    async connectToPaygOrionTradeTeam() {
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-ALL messages"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
+
     }
 
 
