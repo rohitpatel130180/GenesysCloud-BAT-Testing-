@@ -1,8 +1,8 @@
 import { Page, expect } from "@playwright/test";
-import { meterKeyOrCardJourney_Data, whatDoYouNeedHelpWithJourney_Data } from "../../../test-data/pay_as_you_go_data/meter_key_or_card_data";
+import { meterKeyOrCardJourney_Data } from "../../../test-data/pay_as_you_go_intent_data/meter_key_or_card_data.ts";
 import { WebChatUtils } from "../webchat-utils";
 import { PayAsYouGoSelectors } from "./pay_as_you_go_utils";
-import exp from "constants";
+import { payAsYouGo_endpoints } from "../../../test-data/intent_endpoint_messages_data/intent_endpoint.ts";
 
 
 export class MeterKeyOrCardSelectors {
@@ -12,15 +12,12 @@ export class MeterKeyOrCardSelectors {
         this.page = page;
     }
     getLostGasCardOption() {
-        //return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Gas card. - Click to reply with' });
         return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Gas Card. - Click to' });
     }
     getLostElectricKeyOption() {
-        // return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Electric key. - Click to reply with' });
         return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Lost Electric Key. - Click to' });
     }
     getErrorCodeOption() {
-        // return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Error Code. - Click to reply with' });
         return this.page.locator('iframe[name="MessengerFrame"]').contentFrame().getByRole('button', { name: 'Error Code. - Click to reply' });
     }
 }
@@ -36,9 +33,7 @@ export class MeterKeyOrCardUtils {
         this.payAsYouGoSelectors = new PayAsYouGoSelectors(page);
         this.webChatUtils = new WebChatUtils(page);
         this.meterKeyOrCardSelectors = new MeterKeyOrCardSelectors(page);
-
     }
-
 
     async meterKeyOrCardJourney() {
         await this.payAsYouGoSelectors.getMeterKeyOrCardOption().click();
@@ -139,15 +134,19 @@ export class MeterKeyOrCardUtils {
     }
 
     async connectToPaygTeam() {
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-ALL messages"]);
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
-
+        // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-ALL messages"]);
+        // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0].Connect_To_PAYG_Team_Msg1);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0].Connect_To_PAYG_Team_Msg2);
     }
     async connectToPaygOrionTradeTeam() {
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-ALL messages"]);
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
-
+        // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-ALL messages"]);
+        // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0].Connect_To_PAYG_Orion_TRAD_Team_Msg1);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0].Connect_To_PAYG_Orion_TRAD_Team_Msg2);
     }
+
+
 
 
 }

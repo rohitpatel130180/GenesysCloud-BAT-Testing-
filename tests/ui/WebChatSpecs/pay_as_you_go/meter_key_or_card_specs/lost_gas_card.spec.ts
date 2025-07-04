@@ -1,6 +1,6 @@
 import { test, expect } from "../../../../../src/fixtures/genesys-fixtures.ts";
-import { payAsYouGoJourney_Data } from "../../../../../src/test-data/pay_as_you_go_data/pay_as_you_go_data.ts"
-import { meterKeyOrCardJourney_Data, whatDoYouNeedHelpWithJourney_Data } from "../../../../../src/test-data/pay_as_you_go_data/meter_key_or_card_data.ts";
+import { payAsYouGoJourney_Data } from "../../../../../src/test-data/pay_as_you_go_intent_data/pay_as_you_go_data.ts"
+import { meterKeyOrCardJourney_Data, whatDoYouNeedHelpWithJourney_Data } from "../../../../../src/test-data/pay_as_you_go_intent_data/meter_key_or_card_data.ts";
 
 const workingHoursPreIntentJourney = [
     {
@@ -95,7 +95,7 @@ test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
             await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
                 await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
             });
-            await test.step('Verify Section "Connect to PAYGOrion Team"', async () => {
+            await test.step('Verify Section "Connect to PAYGOrion_Trad_Team"', async () => {
                 await meterKeyOrCardUtils.connectToPaygOrionTradeTeam();
             });
         });
@@ -117,7 +117,7 @@ test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
             await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
                 await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
             });
-            await test.step('Verify Section "Connect to PAYGOrion Team"', async () => {
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });

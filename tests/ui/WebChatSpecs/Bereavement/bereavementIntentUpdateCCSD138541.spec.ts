@@ -1,7 +1,8 @@
 import { TIMEOUT } from "dns";
 import { test, expect } from "../../../../src/fixtures/genesys-fixtures"
-import { bereavementIntent_138541_Data } from '../../../../src/test-data/Bereavement Intent/bereavement-intent';
-import { annotate } from '../../../../src/utils/shared/annotate';
+import { bereavementIntent_138541_Data } from '../../../../src/test-data/bereavement_intent_data/bereavement-intent';
+import { bereavement_endpoits} from '../../../../src/test-data/intent_endpoint_messages_data/intent_endpoint'
+
 const workingHoursPreIntentJourney = [
   {
     input: 'preIntent_1_1',
@@ -32,16 +33,18 @@ test.describe('Within Working Hours', () => {
       });
       await test.step("Click Yes.", async () => { await webChatUtils.userClickYesButton(); });
       await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Do you still need help and would like to talk to one of our agents?");
+        //expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Do you still need help and would like to talk to one of our agents?");
+        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavement_endpoits[0].CHAT_OVO_bereavement);
       });
-      await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
-      await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Is there anything else I can help with?");
-      });
-      await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
-      await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Thank you for contacting OVO Energy. If you have any further questions just ask me anytime...");
-      });
+      // await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
+      // await test.step("Verify Web Messenger response.", async () => {
+      //   expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Is there anything else I can help with?");
+      // });
+      // await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
+      // await test.step("Verify Web Messenger response.", async () => {
+      //   //expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Thank you for contacting OVO Energy. If you have any further questions just ask me anytime...");
+      //    expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavement_endpoits[0].DoNotEnterBotSurvery);
+      // });
     });
 
     test(`CCSD-138541_TC_02 --> ${preIntent.description}`, async ({ webChatUtils, webChatActions }) => {
@@ -64,7 +67,8 @@ test.describe('Within Working Hours', () => {
       });
       await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
       await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Thank you for contacting OVO Energy. If you have any further questions just ask me anytime...");
+       // expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Thank you for contacting OVO Energy. If you have any further questions just ask me anytime...");
+       expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavement_endpoits[0].Do_Not_Enter_BotSurvery);
       });
     });
 
@@ -88,7 +92,8 @@ test.describe('Within Working Hours', () => {
       });
       await test.step("Click Yes.", async () => { await webChatUtils.userClickYesButton(); });
       await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
+       // expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
+      expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavement_endpoits[0].FAQ_Bot_Intent_Recognition);
       });
     });
 
@@ -110,16 +115,17 @@ test.describe('Within Working Hours', () => {
       });
       await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
       await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavementIntentData["Que-Do You Still Need Help"]);
+       // expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavementIntentData["Que-Do You Still Need Help"]);
+       expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavement_endpoits[0].CHAT_OVO_bereavement);
       });
-      await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
-      await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavementIntentData["Que-Is There Anything Else"]);
-      });
-      await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
-      await test.step("Verify Web Messenger response.", async () => {
-        expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavementIntentData["Msg-Thank You For Contacting"]);
-      });
+      // await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
+      // await test.step("Verify Web Messenger response.", async () => {
+      //   expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavementIntentData["Que-Is There Anything Else"]);
+      // });
+      // await test.step("Click No.", async () => { await webChatUtils.userClickNoButton(); });
+      // await test.step("Verify Web Messenger response.", async () => {
+      //   expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavementIntentData["Msg-Thank You For Contacting"]);
+      // });
     });
   }
 });

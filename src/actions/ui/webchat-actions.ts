@@ -1,7 +1,8 @@
 import { Page, expect } from '@playwright/test'
 import { WebChatUtils } from '../../utils/ui/webchat-utils'
-import { webChatTestData } from '../../test-data/web-chat';
+import { inHoursOpeningJourneyMsg, webChatTestData } from '../../test-data/web_chat_data';
 const webChatData = webChatTestData[0];
+const inHoursMessages = inHoursOpeningJourneyMsg[0];
 
 export class WebChatActions {
     readonly webChatUtils: WebChatUtils;
@@ -81,8 +82,11 @@ export class WebChatActions {
      * It checks the chatbot's responses for the initial greeting and the security questions prompt.
      */
     async userJourneyInBusinessHours() {
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I’m here to help.").trim());
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("I just need a few details first for security. Providing this will help me get you the right support quickly, whether it's self-serve you're after or connecting you with the right team").trim());
+        //expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I’m here to help.").trim());
+        //expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("I just need a few details first for security. Providing this will help me get you the right support quickly, whether it's self-serve you're after or connecting you with the right team").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe((inHoursMessages['HelloMessage']).trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe((inHoursMessages['IJustNeedMessage']).trim());
+
     }
     /**
      * This method verifies the greetings displayed to the user when they are outside business hours.

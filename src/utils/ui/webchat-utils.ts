@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test"
 import { expect } from "@playwright/test"
-import { webChatTestData } from "../../test-data/web-chat";
+import { webChatTestData } from "../../test-data/web_chat_data";
 import exp from "constants";
 const webChatData = webChatTestData[0];
 

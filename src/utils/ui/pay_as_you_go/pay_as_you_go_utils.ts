@@ -1,6 +1,6 @@
 import { Page, expect } from "@playwright/test";
-import { payAsYouGoJourney_Data } from "../../../test-data/pay_as_you_go_data/pay_as_you_go_data";
-import { whatDoYouNeedHelpWithJourney_Data } from "../../../test-data/pay_as_you_go_data/meter_key_or_card_data";
+import { payAsYouGoJourney_Data } from "../../../test-data/pay_as_you_go_intent_data/pay_as_you_go_data";
+import { whatDoYouNeedHelpWithJourney_Data } from "../../../test-data/pay_as_you_go_intent_data/meter_key_or_card_data";
 import { WebChatUtils } from "../webchat-utils";
 
 
