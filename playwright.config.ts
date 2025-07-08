@@ -25,6 +25,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   //retries: process.env.CI ? 2 : 1, // or set different numbers if you want //Changed on 07/07/2025
   workers: process.env.CI ? 1 : 3,
+  //workers: process.env.CI ? 1 : undefined, // Changed on 07/07/2025 to run tests in parallel
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   //reporter: 'html',
   reporter: [

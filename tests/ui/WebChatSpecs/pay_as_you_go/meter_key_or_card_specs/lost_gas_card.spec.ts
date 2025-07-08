@@ -12,15 +12,12 @@ const workingHoursPreIntentJourney = [
         description: 'Non-Existing Customer',
     }
  ];
-
-
   
-
 // test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
 for (const preIntent of workingHoursPreIntentJourney) {
     test.describe(`Lost Gas Card Journey (Within Working Hours) - ${preIntent.description}`, () => {
        test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
-            test.setTimeout(150000); // Set timeout to 150 seconds for this test
+            test.setTimeout(90000); // Set timeout to 150 seconds for this test
             await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });
             await test.step("Provide PayGo Intent Query.", async () => { await webChatUtils.sendMessage(payAsYouGoJourney_Data[0]["Data-Pay As You Go"]); });
             await test.step(`Verify Section" ${payAsYouGoJourney_Data[0]["QUE-Are you currently unable to afford to top up"]} "`, async () => {
