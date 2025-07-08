@@ -59,12 +59,15 @@ export class WebChatUtils {
 
     constructor(page: Page) {
         this.page = page;
-        this.webChatSelectors = new WebChatSelectors(this.page);       
+        this.webChatSelectors = new WebChatSelectors(this.page);
 
     }
     async goToWebChatUrl() {
         //await this.page.goto('https://messenger-tests.mit-nonprod.ovotech.org.uk/test-pages/wm-deployment-test.html');
         //const webChatData = webChatTestData[0];
+        await this.page.goto('about:blank');;
+        await this.page.context().clearCookies();
+       // await this.page.evaluate(() => localStorage.clear());
         await this.page.goto(webChatData.url);
     }
 
@@ -115,8 +118,8 @@ export class WebChatUtils {
         const text = await lastMessage.textContent();
         console.log(text);
         return text?.trim();
-    }    
-    async verifyChatBotYouSaidResponse() {        
+    }
+    async verifyChatBotYouSaidResponse() {
         const messagesLocator = this.webChatSelectors.getChatBotMessageYouSaid();
         const beforeCount = await messagesLocator.count();
         // Wait for a new message to appear (polling)

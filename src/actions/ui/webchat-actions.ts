@@ -1,8 +1,10 @@
 import { Page, expect } from '@playwright/test'
 import { WebChatUtils } from '../../utils/ui/webchat-utils'
-import { inHoursOpeningJourneyMsg, webChatTestData } from '../../test-data/web_chat_data';
+import { inHoursOpeningJourneyMsg, webChatTestData, existingCustomerData,nonCustomerData } from '../../test-data/web_chat_data';
 const webChatData = webChatTestData[0];
 const inHoursMessages = inHoursOpeningJourneyMsg[0];
+const existingCustomer = existingCustomerData[0];
+const nonCustomer = nonCustomerData[0];
 
 export class WebChatActions {
     readonly webChatUtils: WebChatUtils;
@@ -17,6 +19,7 @@ export class WebChatActions {
      * It also verifies that the Open Messenger button is displayed and opens the web messenger.
      */
     async userInitiateWebchat() {
+        
         await this.webChatUtils.goToWebChatUrl();
         await this.webChatUtils.enterWebChatCredentials();
         await this.webChatUtils.clickLoadDeploymentButton();
@@ -125,17 +128,17 @@ export class WebChatActions {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Are you an OVO customer?").trim());
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your first name?").trim());
-        await this.webChatUtils.sendMessage(webChatData.firstName);
+        await this.webChatUtils.sendMessage(existingCustomer.firstName);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your last name?").trim());
-        await this.webChatUtils.sendMessage(webChatData.lastName);
+        await this.webChatUtils.sendMessage(existingCustomer.lastName);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm the email address of your account. If you don't know your email address, enter #").trim());
-        await this.webChatUtils.sendMessage(webChatData.email);
+        await this.webChatUtils.sendMessage(existingCustomer.email);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm your account number. If you don't know your account number, enter #").trim());
-        await this.webChatUtils.sendMessage(webChatData.accountNumber);
+        await this.webChatUtils.sendMessage(existingCustomer.accountNumber);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm your postcode.").trim());
-        await this.webChatUtils.sendMessage(webChatData.postCode);
+        await this.webChatUtils.sendMessage(existingCustomer.postCode);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Please confirm your date of birth using DD-MM-YYYY format. For example, 01-05-1972.").trim());
-        await this.webChatUtils.sendMessage(webChatData.dateOfBirth);
+        await this.webChatUtils.sendMessage(existingCustomer.dateOfBirth);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
     }
     /**
@@ -146,11 +149,11 @@ export class WebChatActions {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Are you an OVO customer?").trim());
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your first name?").trim());
-        await this.webChatUtils.sendMessage(webChatData.firstName);
+        await this.webChatUtils.sendMessage(nonCustomer.firstName);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your last name?").trim());
-        await this.webChatUtils.sendMessage(webChatData.lastName);
+        await this.webChatUtils.sendMessage(nonCustomer.lastName);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("What is your email, so we can keep track of our chat? If you don't have an email, enter #").trim());
-        await this.webChatUtils.sendMessage(webChatData.email);
+        await this.webChatUtils.sendMessage(nonCustomer.email);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
     }
 
@@ -168,7 +171,7 @@ export class WebChatActions {
     }
     async preIntent_2_1() {
         await this.userInitiateWebchat();
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right directin.").trim());
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Hello, I’m OVO’s digital assistant and I can help point you in the right direction.").trim());
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(("Do you have a Pay As You Go meter that you top up?").trim());
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");

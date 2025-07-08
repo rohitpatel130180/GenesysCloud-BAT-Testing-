@@ -85,7 +85,7 @@ export class MeterKeyOrCardUtils {
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
     }
-    async ableToPickUpNewKeyCardNoJourneyOffSupplyYes() {
+    async ableToPickUpNewKeyCardNoJourney_OffSupplyYes() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["QUE-AreYouOrSomeoneAbleToPickUpNewKeyCard?"]);
         await this.webChatUtils.sendMessage("random text");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry. Say yes or no for Pick Up"]);

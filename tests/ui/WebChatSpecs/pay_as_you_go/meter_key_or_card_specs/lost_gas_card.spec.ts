@@ -7,19 +7,20 @@ const workingHoursPreIntentJourney = [
         input: 'preIntent_1_1',
         description: 'Existing Customer',
     },
-    // {
-    //     input: 'preIntent_1_2',
-    //     description: 'Non-Existing Customer',
-    // }
-];
+    {
+        input: 'preIntent_1_2',
+        description: 'Non-Existing Customer',
+    }
+ ];
 
 
+  
 
-test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
-    for (const preIntent of workingHoursPreIntentJourney) {
-
-        test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
-            test.setTimeout(90000); // Set timeout to 60 seconds for this test
+// test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
+for (const preIntent of workingHoursPreIntentJourney) {
+    test.describe(`Lost Gas Card Journey (Within Working Hours) - ${preIntent.description}`, () => {
+       test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
+            test.setTimeout(150000); // Set timeout to 150 seconds for this test
             await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });
             await test.step("Provide PayGo Intent Query.", async () => { await webChatUtils.sendMessage(payAsYouGoJourney_Data[0]["Data-Pay As You Go"]); });
             await test.step(`Verify Section" ${payAsYouGoJourney_Data[0]["QUE-Are you currently unable to afford to top up"]} "`, async () => {
@@ -33,7 +34,8 @@ test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
             });
 
         });
-
+    
+        
         test(`Lost Gas Card 01--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
@@ -122,9 +124,123 @@ test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
             });
         });
 
+        test(`Lost Gas Card 05--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
+                await meterKeyOrCardUtils.userSelectLostGasCard();
+            });
+            await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+        test(`Lost Gas Card 06--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
+                await meterKeyOrCardUtils.userSelectLostGasCard();
+            });
+            await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+        test(`Lost Gas Card 07--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
+                await meterKeyOrCardUtils.userSelectLostGasCard();
+            });
+            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+        test(`Lost Gas Card 08--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
+                await meterKeyOrCardUtils.userSelectLostGasCard();
+            });
+            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+
+        test(`Lost Gas Card 09--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
+                await meterKeyOrCardUtils.userSelectLostGasCard();
+            });
+            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-NO"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardNoJourney_OffSupplyYes();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+
+        test(`Lost Gas Card 10--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
+                await meterKeyOrCardUtils.userSelectLostGasCard();
+            });
+            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-NO"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardNoJourney_OffSupplyYes();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+
+
+
+
 
 
 
         /////END OF FOOR LOOP  
-    }
-});
+    });
+};

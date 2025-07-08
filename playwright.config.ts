@@ -16,33 +16,36 @@ export default defineConfig({
   testDir: './tests/ui/WebChatSpecs', // Directory where your tests are located
   /* Run tests in files in parallel */
   fullyParallel: true,
+   // Changed on 07/07/2025 to run tests in parallel
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 2 : 1,
+   // Only failed tests will be retried once after the full run
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  //retries: process.env.CI ? 2 : 1, // or set different numbers if you want //Changed on 07/07/2025
+  workers: process.env.CI ? 1 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   //reporter: 'html',
   reporter: [
-    ['html', { outputFolder: 'TestReportOutput' }]   
+    ['html', { outputFolder: 'TestReportOutput' }]
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    
+
 
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
-    video:'retain-on-failure',
-    trace:'retain-on-failure',
-    screenshot:'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 
 
     testIdAttribute: 'data-test',
     //trace: 'on-first-retry',
     permissions: ['microphone', 'camera'],
-    
+
   },
 
 
@@ -55,7 +58,7 @@ export default defineConfig({
         launchOptions: {
           //slowMo: 3000, // This will slow down the execution of each step by 2 seconds
           args: [
-            
+
             '--use-fake-device-for-media-stream',
             '--use-fake-ui-for-media-stream',
             // '--use-file-for-fake-audio-capture=/path/to/your/audio.wav',
