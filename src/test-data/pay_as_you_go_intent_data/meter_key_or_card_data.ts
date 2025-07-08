@@ -23,12 +23,16 @@ export const meterKeyOrCardJourney_Data = [
 
         "QUE-Do you have a smart meter?": "Do you have a smart meter?",
         "MSG-Sorry say yes or no for smart meter": `Sorry. Say "yes" if you have a smart meter or "no" if you don't.`,
+        "MSG-Sorry Please say yes or no for smart meter": `Sorry. Please say "yes" or "no". If you have a smart meter`,
 
         "QUE-Do you have enough credit?": "Do you have enough credit left to wait for us to post a key/card to you?",
         "MSG-Sorry say yes or no for waite": `Sorry. Say "yes" if you can wait or "no" if you cant wait.`,
+        "MSG-Sorry say yes/no for enough credit": `Sorry. Say "yes" if you have enough credit or "no" if you don't have enough credit.`,
 
         "MSG-ALL messages": "All messages are stored to help us provide a better service.",
         "MSG-Lets find you someone": "Ok, let's find someone for you to chat to.",
+
+        "MSG-Pls Confirm Error Message": "Please confirm the error message on the meter screen",
 
         "Option-Lost Gas Card": "Lost Gas Card",
         "Option-Lost Electric Key": "Lost Electric Key",

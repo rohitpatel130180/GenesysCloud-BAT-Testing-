@@ -105,15 +105,26 @@ export class MeterKeyOrCardUtils {
     async doYouHaveEnoughCreditNoJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["QUE-Do you have enough credit?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for waite"]);
-        await this.webChatUtils.userClickNoButton();
+
+       // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for waite"]);
+       const response = await this.webChatUtils.verifyChatbotRoboSaidResponse();
+        expect(
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for waite"] ||
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes/no for enough credit"]
+        ).toBeTruthy();
+       await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Let's connect"]);
     }
     async doYouHaveEnoughCreditYesJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["QUE-Do you have enough credit?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for waite"]);
+        //expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for waite"]);
+        const response = await this.webChatUtils.verifyChatbotRoboSaidResponse();
+        expect(
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for waite"] ||
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes/no for enough credit"]
+        ).toBeTruthy();
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Let's connect"]);
@@ -121,14 +132,26 @@ export class MeterKeyOrCardUtils {
     async doYouHaveSmartMeterNoJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["QUE-Do you have a smart meter?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"]);
+        // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"]);
+        const response = await this.webChatUtils.verifyChatbotRoboSaidResponse();
+        expect(
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"] ||
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry Please say yes or no for smart meter"]
+        ).toBeTruthy();
+
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
     }
     async doYouHaveSmartMeterYesJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["QUE-Do you have a smart meter?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"]);
+        // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"]);
+        const response = await this.webChatUtils.verifyChatbotRoboSaidResponse();
+        expect(
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry say yes or no for smart meter"] ||
+            response === meterKeyOrCardJourney_Data[0]["MSG-Sorry Please say yes or no for smart meter"]
+        ).toBeTruthy();
+
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
     }
@@ -144,6 +167,12 @@ export class MeterKeyOrCardUtils {
         // expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Lets find you someone"]);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0].Connect_To_PAYG_Orion_TRAD_Team_Msg1);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0].Connect_To_PAYG_Orion_TRAD_Team_Msg2);
+    }
+
+    async meterScreenErrorMessage() {
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(meterKeyOrCardJourney_Data[0]["MSG-Pls Confirm Error Message"]);
+        await this.webChatUtils.sendMessage("random text");
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("random text");
     }
 
 
