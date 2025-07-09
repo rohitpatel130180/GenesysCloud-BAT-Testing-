@@ -7,16 +7,16 @@ const workingHoursPreIntentJourney = [
         input: 'preIntent_1_1',
         description: 'Existing Customer',
     },
-    // {
-    //     input: 'preIntent_1_2',
-    //     description: 'Non-Existing Customer',
-    // }
- ];
-  
+    {
+        input: 'preIntent_1_2',
+        description: 'Non-Existing Customer',
+    }
+];
+
 
 for (const preIntent of workingHoursPreIntentJourney) {
-    test.describe(`Error Code (Within Working Hours) - ${preIntent.description}`, () => {
-       test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
+    test.describe(`Meter Key or Card (In Hours)-->Error Code--> ${preIntent.description}`, () => {
+        test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
             test.setTimeout(90000); // Set timeout to 150 seconds for this test
             await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });
             await test.step("Provide PayGo Intent Query.", async () => { await webChatUtils.sendMessage(payAsYouGoJourney_Data[0]["Data-Pay As You Go"]); });
@@ -31,9 +31,9 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
 
         });
-    
-        
-        test(`Error code 01--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+
+        test(`Error code 01`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Error code"`, async () => {
                 await meterKeyOrCardUtils.userSelectErrorCode();
@@ -41,27 +41,8 @@ for (const preIntent of workingHoursPreIntentJourney) {
             await test.step(`Verify Section "Confirm Error Message"`, async () => {
                 await meterKeyOrCardUtils.meterScreenErrorMessage();
             });
-             await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
-            });
-            await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
-                await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
-            });
-            await test.step(`Verify Section "Able to Pick up new Key/Card?-NO"`, async () => {
-                await meterKeyOrCardUtils.ableToPickUpNewKeyCardNoJourney();
-            });
-            await test.step(`Verify Section "Do you have enough credit?-NO"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveEnoughCreditNoJourney();
-            });           
-            await test.step('Verify Section "Connect to PAYGOrion_Trad_Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygOrionTradeTeam();
-            });
-        });
-
-        /*test(`Error code 02--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
-
-            await test.step(`Verify Section "Select Error code"`, async () => {
-                await meterKeyOrCardUtils.userSelectErrorCode();
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
             });
             await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
                 await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
@@ -72,18 +53,21 @@ for (const preIntent of workingHoursPreIntentJourney) {
             await test.step(`Verify Section "Do you have enough credit?-NO"`, async () => {
                 await meterKeyOrCardUtils.doYouHaveEnoughCreditNoJourney();
             });
-            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
-            });
             await test.step('Verify Section "Connect to PAYG Team"', async () => {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
 
-        test(`Error code 03--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Error code 02`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Error code"`, async () => {
                 await meterKeyOrCardUtils.userSelectErrorCode();
+            });
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
             });
             await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
                 await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
@@ -94,18 +78,111 @@ for (const preIntent of workingHoursPreIntentJourney) {
             await test.step(`Verify Section "Do you have enough credit?-YES"`, async () => {
                 await meterKeyOrCardUtils.doYouHaveEnoughCreditYesJourney();
             });
-            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
-            });
-            await test.step('Verify Section "Connect to PAYGOrion_Trad_Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygOrionTradeTeam();
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
 
-        test(`Error code 04--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Error code 03`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Error code"`, async () => {
                 await meterKeyOrCardUtils.userSelectErrorCode();
+            });
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+
+        test(`Error code 04`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Error code"`, async () => {
+                await meterKeyOrCardUtils.userSelectErrorCode();
+            });
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-NO"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardNoJourney_OffSupplyYes();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+        test(`Error code 05`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Error code"`, async () => {
+                await meterKeyOrCardUtils.userSelectErrorCode();
+            });
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            });
+            await test.step('Verify Section "Connect to PAYG Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygTeam();
+            });
+        });
+
+        test(`Error code 06`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Error code"`, async () => {
+                await meterKeyOrCardUtils.userSelectErrorCode();
+            });
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
+            });
+            await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-NO"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardNoJourney();
+            });
+            await test.step(`Verify Section "Do you have enough credit?-NO"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveEnoughCreditNoJourney();
+            });
+            await test.step('Verify Section "Connect to PAYGOrion_TRAD_Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygOrionTradeTeam;
+            });
+        });
+
+        test(`Error code 07`, async ({ meterKeyOrCardUtils }) => {
+
+            await test.step(`Verify Section "Select Error code"`, async () => {
+                await meterKeyOrCardUtils.userSelectErrorCode();
+            });
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
             });
             await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
                 await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
@@ -116,18 +193,21 @@ for (const preIntent of workingHoursPreIntentJourney) {
             await test.step(`Verify Section "Do you have enough credit?-YES"`, async () => {
                 await meterKeyOrCardUtils.doYouHaveEnoughCreditYesJourney();
             });
-            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
-            });
-            await test.step('Verify Section "Connect to PAYG Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygTeam();
+            await test.step('Verify Section "Connect to PAYGOrion_TRAD_Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygOrionTradeTeam;
             });
         });
 
-        test(`Error code 05--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Error code 08-->`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Error code"`, async () => {
                 await meterKeyOrCardUtils.userSelectErrorCode();
+            });
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
+            });
+            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
+                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
             });
             await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
                 await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
@@ -135,72 +215,21 @@ for (const preIntent of workingHoursPreIntentJourney) {
             await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
                 await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
             });
-            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
-            });
-            await test.step('Verify Section "Connect to PAYG Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygTeam();
+            await test.step('Verify Section "Connect to PAYGOrion_TRAD_Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygOrionTradeTeam;
             });
         });
-        test(`Error code 06--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+        test(`Error code 09`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Error code"`, async () => {
                 await meterKeyOrCardUtils.userSelectErrorCode();
             });
-            await test.step(`Verify Section "Are you off supply?-NO"`, async () => {
-                await meterKeyOrCardUtils.areYouOffTheSupplyNoJourney();
-            });
-            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
-                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
             });
             await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
                 await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
-            });
-            await test.step('Verify Section "Connect to PAYG Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygTeam();
-            });
-        });
-        test(`Error code 07--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
-
-            await test.step(`Verify Section "Select Error code"`, async () => {
-                await meterKeyOrCardUtils.userSelectErrorCode();
-            });
-            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
-                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
-            });
-            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
-                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
-            });
-            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
-            });
-            await test.step('Verify Section "Connect to PAYG Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygTeam();
-            });
-        });
-        test(`Error code 08--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
-
-            await test.step(`Verify Section "Select Error code"`, async () => {
-                await meterKeyOrCardUtils.userSelectErrorCode();
-            });
-            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
-                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
-            });
-            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
-                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
-            });
-            await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
-            });
-            await test.step('Verify Section "Connect to PAYG Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygTeam();
-            });
-        });
-
-        test(`Error code 09--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
-
-            await test.step(`Verify Section "Select Error code"`, async () => {
-                await meterKeyOrCardUtils.userSelectErrorCode();
             });
             await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
                 await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
@@ -208,33 +237,32 @@ for (const preIntent of workingHoursPreIntentJourney) {
             await test.step(`Verify Section "Able to Pick up new Key/Card?-NO"`, async () => {
                 await meterKeyOrCardUtils.ableToPickUpNewKeyCardNoJourney_OffSupplyYes();
             });
-            await test.step(`Verify Section "Do you have smart meter?-YES"`, async () => {
-                await meterKeyOrCardUtils.doYouHaveSmartMeterYesJourney();
-            });
-            await test.step('Verify Section "Connect to PAYG Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygTeam();
+            await test.step('Verify Section "Connect to PAYGOrion_TRAD_Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygOrionTradeTeam;
             });
         });
-
-        test(`Error code 10--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Error code 10`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Error code"`, async () => {
                 await meterKeyOrCardUtils.userSelectErrorCode();
             });
-            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
-                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
-            });
-            await test.step(`Verify Section "Able to Pick up new Key/Card?-NO"`, async () => {
-                await meterKeyOrCardUtils.ableToPickUpNewKeyCardNoJourney_OffSupplyYes();
+            await test.step(`Verify Section "Confirm Error Message"`, async () => {
+                await meterKeyOrCardUtils.meterScreenErrorMessage();
             });
             await test.step(`Verify Section "Do you have smart meter?-NO"`, async () => {
                 await meterKeyOrCardUtils.doYouHaveSmartMeterNoJourney();
             });
-            await test.step('Verify Section "Connect to PAYG Team"', async () => {
-                await meterKeyOrCardUtils.connectToPaygTeam();
+            await test.step(`Verify Section "Are you off supply?-YES"`, async () => {
+                await meterKeyOrCardUtils.areYouOffTheSupplyYesJourney();
+            });
+            await test.step(`Verify Section "Able to Pick up new Key/Card?-YES"`, async () => {
+                await meterKeyOrCardUtils.ableToPickUpNewKeyCardYesJourney();
+            });
+            await test.step('Verify Section "Connect to PAYGOrion_TRAD_Team"', async () => {
+                await meterKeyOrCardUtils.connectToPaygOrionTradeTeam;
             });
         });
-        */
-       /////END OF FOOR LOOP  
+
+        /////END OF FOOR LOOP  
     });
 };

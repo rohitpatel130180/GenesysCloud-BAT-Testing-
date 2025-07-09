@@ -15,7 +15,7 @@ const workingHoursPreIntentJourney = [
   
 // test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
 for (const preIntent of workingHoursPreIntentJourney) {
-    test.describe(`Lost Electric Key Journey (Within Working Hours) - ${preIntent.description}`, () => {
+    test.describe(`Meter Key or Card (In Hours)-->Lost Electric Key-->${preIntent.description}`, () => {
        test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
             test.setTimeout(90000); // Set timeout to 150 seconds for this test
             await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });
@@ -33,7 +33,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
         });
     
         
-        test(`Lost Electric Key 01--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 01`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -55,7 +55,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Electric Key 02--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 02`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -77,7 +77,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Electric Key 03--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 03`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -99,7 +99,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Electric Key 04--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 04`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -121,7 +121,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Electric Key 05--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 05`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -139,7 +139,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
-        test(`Lost Electric Key 06--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 06`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -157,7 +157,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
-        test(`Lost Electric Key 07--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 07`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -175,7 +175,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
-        test(`Lost Electric Key 08--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 08`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -194,7 +194,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Electric Key 09--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 09`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();
@@ -213,7 +213,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Electric Key 10--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Electric Key 10`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Electric Key"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostElectricKey();

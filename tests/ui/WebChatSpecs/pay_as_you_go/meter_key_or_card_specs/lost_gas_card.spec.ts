@@ -11,12 +11,12 @@ const workingHoursPreIntentJourney = [
         input: 'preIntent_1_2',
         description: 'Non-Existing Customer',
     }
- ];
-  
+];
+
 // test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
 for (const preIntent of workingHoursPreIntentJourney) {
-    test.describe(`Lost Gas Card Journey (Within Working Hours) - ${preIntent.description}`, () => {
-       test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
+    test.describe(`Meter Key or Card (In Hours)-->Lost Gas Card-->${preIntent.description}`, () => {
+        test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
             test.setTimeout(90000); // Set timeout to 150 seconds for this test
             await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });
             await test.step("Provide PayGo Intent Query.", async () => { await webChatUtils.sendMessage(payAsYouGoJourney_Data[0]["Data-Pay As You Go"]); });
@@ -31,9 +31,9 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
 
         });
-    
-        
-        test(`Lost Gas Card 01--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+
+
+        test(`Lost Gas Card 01`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -55,7 +55,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Gas Card 02--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 02`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -77,7 +77,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Gas Card 03--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 03`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -99,7 +99,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Gas Card 04--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 04`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -121,7 +121,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Gas Card 05--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 05`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -139,7 +139,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
-        test(`Lost Gas Card 06--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 06`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -157,7 +157,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
-        test(`Lost Gas Card 07--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 07`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -175,7 +175,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await meterKeyOrCardUtils.connectToPaygTeam();
             });
         });
-        test(`Lost Gas Card 08--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 08`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -194,7 +194,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Gas Card 09--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 09`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
@@ -213,7 +213,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
 
-        test(`Lost Gas Card 10--> ${preIntent.description}`, async ({ meterKeyOrCardUtils }) => {
+        test(`Lost Gas Card 10`, async ({ meterKeyOrCardUtils }) => {
 
             await test.step(`Verify Section "Select Lost Gas Card"`, async () => {
                 await meterKeyOrCardUtils.userSelectLostGasCard();
