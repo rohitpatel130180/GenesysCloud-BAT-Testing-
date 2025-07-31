@@ -5,7 +5,7 @@ import { WebChatSelectors, WebChatUtils } from "../utils/ui/webchat-utils";
 import { WebChatActions } from "../actions/ui/webchat-actions"
 import { PayAsYouGoUtils } from "../utils/ui/pay_as_you_go/pay_as_you_go_utils";
 import { MeterKeyOrCardUtils as Meter, MeterKeyOrCardUtils } from "../utils/ui/pay_as_you_go/meter_key_or_card_utils";
-
+import { ToppingUpUtils, ToppingUpSelectors } from "../utils/ui/pay_as_you_go/topping_up_utils";
 
 type pages = {
 
@@ -16,7 +16,9 @@ type pages = {
     webChatSelectors: WebChatSelectors,
     webChatActions: WebChatActions,
     payAsYouGoUtils: PayAsYouGoUtils,
-    meterKeyOrCardUtils:MeterKeyOrCardUtils
+    meterKeyOrCardUtils: MeterKeyOrCardUtils,
+    toppingUpUtils: ToppingUpUtils,
+
 }
 
 export const test = base.extend<pages>({
@@ -39,12 +41,15 @@ export const test = base.extend<pages>({
         await use(new WebChatActions(page));
     },
     payAsYouGoUtils: async ({ page }, use) => {
-            await use(new PayAsYouGoUtils(page));
-        },
-        meterKeyOrCardUtils: async ({ page }, use) => {
-            await use(new MeterKeyOrCardUtils(page));
-        },
-       
+        await use(new PayAsYouGoUtils(page));
+    },
+    meterKeyOrCardUtils: async ({ page }, use) => {
+        await use(new MeterKeyOrCardUtils(page));
+    },
+    toppingUpUtils: async ({ page }, use) => {
+        await use(new ToppingUpUtils(page));
+    },
+
 
 });
 
