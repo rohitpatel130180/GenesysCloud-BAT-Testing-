@@ -1,7 +1,7 @@
 import { TIMEOUT } from "dns";
 import { test, expect } from "../../../../src/fixtures/genesys-fixtures"
 import { bereavementIntent_138541_Data } from '../../../../src/test-data/bereavement_intent_data/bereavement-intent';
-import { bereavement_endpoits} from '../../../../src/test-data/intent_endpoint_messages_data/intent_endpoint'
+import { bereavement_endpoits,common_endpoits} from '../../../../src/test-data/intent_endpoint_messages_data/intent_endpoint'
 
 const workingHoursPreIntentJourney = [
   {
@@ -93,7 +93,7 @@ test.describe('Within Working Hours', () => {
       await test.step("Click Yes.", async () => { await webChatUtils.userClickYesButton(); });
       await test.step("Verify Web Messenger response.", async () => {
        // expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe("Please tell me what type of query you have so I can help you find the right information, e.g. billing query, my online account, meter readings");
-      expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(bereavement_endpoits[0].FAQ_Bot_Intent_Recognition);
+      expect(await webChatUtils.verifyChatbotRoboSaidResponse()).toBe(common_endpoits[0].FAQ_Bot_Intent_Recognition);
       });
     });
 
