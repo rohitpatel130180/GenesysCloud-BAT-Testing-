@@ -13,7 +13,15 @@ const workingHoursPreIntentJourney = [
     }
 
 ];
-
+//////////////////////////////////////////// NOTES ////////////////////////////////////////////////////////////////////////////////////////
+// 1. This topping up sections devided into three divisions:Division A, Division B and Division C.
+//     -Division A: Contains test cases for the  section of the Topping Up main Journey  where user got question "Do you have a smart meter?-No Journey".This section also
+//       contains test cases for the second section of the Topping Up Journey where user got question "Did you get the help you needed? [i.e. Test case 01-06 represent that]".
+//    - Division B: Contains test cases for the  section of the Topping Up Journey where user got question "Do you have a smart meter?[i.e. Test case 07-10 represent that]"
+// Yes Journey".
+//      Division C:  This section also contains test cases for the second section of the Topping Up Journey where user got question "Are You unable to top up>- Yes journey.
+//    - Division D: Contains test cases for the second section of the Topping Up Journey where user select "Don't have funds"
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 for (const preIntent of workingHoursPreIntentJourney) {
     test.describe(`Topping Up (In Hours)--> ${preIntent.description}`, () => {
@@ -31,7 +39,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await toppingUpUtils.toppingUpJourney();
             });
         });
-        ///////////////////////////////////// SECTION 1 //////////////////////////////////////
+        ///////////////////////////////////// DIVISION A TEST CASES //////////////////////////////////////
         test(`TOPPING_UP_01`, async ({ toppingUpUtils }) => {
 
             await test.step(`Verify Section "Are you unable to top up?-No"`, async () => {
@@ -78,7 +86,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await toppingUpUtils.doYouWantToChatAnAdvisorYesJourney();
             });
             await test.step(`Verify Section "Do you have a smart meter?-Yes"`, async () => {
-                await toppingUpUtils.smartMeterYesJourney();
+                await toppingUpUtils.smartMeterYesJourney_DidYouGetTheHelpNeededSection();
             });
         });
         test(`TOPPING_UP_04`, async ({ toppingUpUtils }) => {
@@ -96,7 +104,7 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await toppingUpUtils.doYouWantToChatAnAdvisorYesJourney();
             });
             await test.step(`Verify Section "Do you have a smart meter?-No"`, async () => {
-                await toppingUpUtils.smartMeterNoJourney();
+                await toppingUpUtils.smartMeterNoJourney_DidYouGetTheHelpNeededSection();
             });
         });
         test(`TOPPING_UP_05`, async ({ toppingUpUtils }) => {
@@ -136,12 +144,15 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await toppingUpUtils.doYouHaveAnotherPayGoQuestionNoJourney();
             });
         });
-        ///////////////////////////////////// END OF SECTION 1 TEST CASES //////////////////////////////////////
-        ///////////////////////////////////// SECTION 2 TEST CASES ////////////////////////////////////////////
+        ///////////////////////////////////// END OF DIVISION A TEST CASES //////////////////////////////////////
+        ///////////////////////////////////// DIVISION B TEST CASES ////////////////////////////////////////////
+
+
+
 
 
         
-        ///////////////////////////////////// END OF SECTION 2 TEST CASES //////////////////////////////////////
+        ///////////////////////////////////// END OF DIVISION B TEST CASES //////////////////////////////////////
         /////END OF FOOR LOOP  
     });
 };
