@@ -226,7 +226,7 @@ export class ToppingUpUtils {
     async haveYouToppedUpYesJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Have you topped up the meter?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MsG-Sorry,Oops,Didin't catch that."]]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MsG-Sorry,Oops,Didin't catch that."]);
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-You will need to re-enable supply"]);
