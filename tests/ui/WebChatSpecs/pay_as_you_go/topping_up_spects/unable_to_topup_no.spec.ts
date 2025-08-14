@@ -17,8 +17,8 @@ const workingHoursPreIntentJourney = [
 // 1. This topping up sections devided into three divisions:Division A, Division B and Division C.
 //     -Division A: Contains test cases for the  section of the Topping Up main Journey  where user got question "Do you have a smart meter?-No Journey".This section also
 //       contains test cases for the second section of the Topping Up Journey where user got question "Did you get the help you needed? [i.e. Test case 01-06 represent that]".
-//    - Division B: Contains test cases for the  section of the Topping Up Journey where user got question "Do you have a smart meter?[i.e. Test case 07-10 represent that]"
-// Yes Journey".
+//    - Division B: Contains test cases for the  section of the Topping Up Journey where user got question "Do you have a smart meter?-Yes Journey[i.e. Test case 07-10 represent that]"
+// ".
 //      Division C:  This section also contains test cases for the second section of the Topping Up Journey where user got question "Are You unable to top up>- Yes journey.
 //    - Division D: Contains test cases for the second section of the Topping Up Journey where user select "Don't have funds"
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,13 +145,86 @@ for (const preIntent of workingHoursPreIntentJourney) {
             });
         });
         ///////////////////////////////////// END OF DIVISION A TEST CASES //////////////////////////////////////
+
+
         ///////////////////////////////////// DIVISION B TEST CASES ////////////////////////////////////////////
+        test(`TOPPING_UP_07`, async ({ toppingUpUtils }) => {
+
+            await test.step(`Verify Section "Are you unable to top up?-No"`, async () => {
+                await toppingUpUtils.areYouUnableToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you have a smart meter?-Yes"`, async () => {
+                await toppingUpUtils.doYouHaveASmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you unsure how to top-up on the OVO Energy app?-No"`, async () => {
+                await toppingUpUtils.areYouUnsureHowToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you need help adding a top-up that hasn't shown up on your IHD or smart meter?-No"`, async () => {
+                await toppingUpUtils.doYouNeedHelpAddingTopupNoJourney();
+            });
+            await test.step(`Verify Section "Have you topped up the meter and can see the credit added, but still don't have power?-No"`, async () => {
+                await toppingUpUtils.haveYouToppedUpNoJourney();
+            });
+        });
+        test(`TOPPING_UP_08`, async ({ toppingUpUtils }) => {
+
+            await test.step(`Verify Section "Are you unable to top up?-No"`, async () => {
+                await toppingUpUtils.areYouUnableToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you have a smart meter?-Yes"`, async () => {
+                await toppingUpUtils.doYouHaveASmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you unsure how to top-up on the OVO Energy app?-No"`, async () => {
+                await toppingUpUtils.areYouUnsureHowToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you need help adding a top-up that hasn't shown up on your IHD or smart meter?-No"`, async () => {
+                await toppingUpUtils.doYouNeedHelpAddingTopupNoJourney();
+            });
+            await test.step(`Verify Section "Have you topped up the meter and can see the credit added, but still don't have power?-Yes"`, async () => {
+                await toppingUpUtils.haveYouToppedUpYesJourney();
+            });
+        });
+        test(`TOPPING_UP_09`, async ({ toppingUpUtils }) => {
+
+            await test.step(`Verify Section "Are you unable to top up?-No"`, async () => {
+                await toppingUpUtils.areYouUnableToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you have a smart meter?-Yes"`, async () => {
+                await toppingUpUtils.doYouHaveASmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you unsure how to top-up on the OVO Energy app?-No"`, async () => {
+                await toppingUpUtils.areYouUnsureHowToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you need help adding a top-up that hasn't shown up on your IHD or smart meter?-Yes"`, async () => {
+                await toppingUpUtils.doYouNeedHelpAddingTopupYesJourney();
+            });
+            await test.step(`Verify Section "User Click I have finished`, async () => {
+                await toppingUpUtils.IHaveFinishedJourney();
+            });
+        });
+        test(`TOPPING_UP_10`, async ({ toppingUpUtils }) => {
+
+            await test.step(`Verify Section "Are you unable to top up?-No"`, async () => {
+                await toppingUpUtils.areYouUnableToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you have a smart meter?-Yes"`, async () => {
+                await toppingUpUtils.doYouHaveASmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you unsure how to top-up on the OVO Energy app?-No"`, async () => {
+                await toppingUpUtils.areYouUnsureHowToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you need help adding a top-up that hasn't shown up on your IHD or smart meter?-Yes"`, async () => {
+                await toppingUpUtils.doYouNeedHelpAddingTopupYesJourney();
+            });
+            await test.step(`Verify Section "User Click I Need More Help`, async () => {
+                await toppingUpUtils.INeedMoreHelpJourney();
+            });
+        });
 
 
 
 
 
-        
         ///////////////////////////////////// END OF DIVISION B TEST CASES //////////////////////////////////////
         /////END OF FOOR LOOP  
     });

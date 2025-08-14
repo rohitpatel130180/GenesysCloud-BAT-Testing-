@@ -180,44 +180,43 @@ export class ToppingUpUtils {
     async doYouNeedHelpAddingTopupNoJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Do you need help adding a top up?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to Topped up the meter question"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to topped up the meter question"]);
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
     }
     async doYouNeedHelpAddingTopupYesJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Do you need help adding a top up?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to Topped up the meter question"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to topped up the meter question"]);
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MsG-You can add the credit yourself manually"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-You can add the credit yourself manually"]);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Take your time to follow the instructions"]);
         expect(await this.toppingUpSelectors.getIHaveFinished().isVisible()).toBeTruthy();
         expect(await this.toppingUpSelectors.getINeedMoreHelp().isVisible()).toBeTruthy();
 
 
     }
-    async IHaveFinishedJourney() {       
+    async IHaveFinishedJourney() {
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MsG-Sorry, Oops, Pls Select I have finished or I need more help"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry, Oops, Pls Select I have finished or I need more help"]);
         await this.toppingUpSelectors.getIHaveFinished().click();
-        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("I've finished.");
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("I've finished");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(didYouGetHelpYouNeedSection_Data[0]["QUE-Did you get the help you need?"]);
     }
-    async INeedMoreHelpJourney() {  
+    async INeedMoreHelpJourney() {
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MsG-Sorry, Oops, Pls Select I have finished or I need more help"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry, Oops, Pls Select I have finished or I need more help"]);
         await this.toppingUpSelectors.getINeedMoreHelp().click();
-        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("I need more help.");
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("I need more help");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Let's connect you to someone"]);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0]["Connect_To_PAYG_Team_Msg1"]);
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(payAsYouGo_endpoints[0]["Connect_To_PAYG_Team_Msg2"]);
-
     }
     async haveYouToppedUpNoJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Have you topped up the meter?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry,OOps,Didin't catch that."]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry,Oops,Didin't catch that."]);
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Check out our most common asked PAYGO questions"]);
@@ -226,7 +225,7 @@ export class ToppingUpUtils {
     async haveYouToppedUpYesJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Have you topped up the meter?"]);
         await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MsG-Sorry,Oops,Didin't catch that."]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry,Oops,Didin't catch that."]);
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-You will need to re-enable supply"]);
