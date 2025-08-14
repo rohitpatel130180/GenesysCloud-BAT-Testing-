@@ -22,16 +22,21 @@ export const toppingUp_Data = [
 
         "QUE-Are you unsure how to top up on App?":"Are you unsure how to top-up on the OVO Energy app?",
         "MSG-Sorry Say Yes or NO to unsure how to top up on App question": `Sorry. Say "yes" if you are unsure how to top-up on the OVO energy app "no" if you know how to top-up on the OVO energy app.`,
+
         "QUE-Do you need help adding a top up?":"Do you need help adding a top-up that hasn't shown up on your IHD or smart meter?",
-        "QUE-Have you topped up the meter?":"Have you topped up the meter and can see the credit added, but still don't have power?",
         "MSG-Sorry Say Yes or NO to topped up the meter question": `Sorry. Say "yes" if you can pick up a new key/card from a paypoint "no" if you don't.`,
-        "MsG-Sorry,Oops,Didin't catch that.": `Sorry. Oops I didn't catch that, please say 'yes' or 'no'`,
-        "MSG-Check out our most common asked PAYGO questions":`Check out our most commonly asked Pay As You Go question guides here:\n\nhttps://www.ovoenergy.com/help/category/pay-as-you-go/payments-and-topping-up`,
+
+        "QUE-Have you topped up the meter?":"Have you topped up the meter and can see the credit added, but still don't have power?",        
+        "MSG-Sorry,Oops,Didin't catch that.": `Sorry. Oops I didn't catch that, please say 'yes' or 'no'`,
+        
+        "MSG-Check out our most common asked PAYGO questions":`Check out our most commonly asked Pay As You Go question guides here: \n\nhttps://www.ovoenergy.com/help/category/pay-as-you-go/payments-and-topping-up`,
         "MSG-You will need to re-enable supply":`You’ll need to re-enable your supply. Follow our short step by step instructional video here:\n\nhttps://www.ovoenergy.com/help/article/reconnect-my-energy-supply`,
-        "MsG-You can add the credit yourself manually":`You can add the credit yourself manually\n\nJust follow our quick and easy step by step instructional video here:\n\nhttps://www.ovoenergy.com/help/credit-hasnt-appeared-on-my-meter`,
+        "MSG-You can add the credit yourself manually":`You can add the credit yourself manually \n\nJust follow our quick and easy step by step instructional video here: \n\nhttps://www.ovoenergy.com/help/credit-hasnt-appeared-on-my-meter`,
         "MSG-Take your time to follow the instructions":`Take your time to follow the instructions in the short video. When you're ready, please select 'I've finished' below.`,
         "MSG-Sorry, Oops, Pls Select I have finished or I need more help": `Sorry. Oops, please select 'I've finished' or 'I need more help'`,
         "MSG-Let's connect you to someone":`Let's connect you to someone to help with that.`,
+
+        "MSG-Just follow these steps":`Just follow these steps:\n\nDownload the app (it’s available in the Android or Apple store)\n\nOpen it on your mobile and set up an account by clicking 'Create an account'. This means you’ll:\n\nbe able to save your top-up card numbers and debit card information keep track of all your top-ups have your top-up barcode handy if you want to top up in the shop\nOnce you've signed in, click 'top up' and enter your top-up card number. This is the 20-digit number on your gas or electricity Pay As You Go top-up card that we sent you.\n\nFollow the instructions to top up\n\nPrefer to top up without creating an account?\n\nUse the guest top-up function with just your top-up card number`,
 
 
 
