@@ -14,17 +14,16 @@ const workingHoursPreIntentJourney = [
 
 ];
 //////////////////////////////////////////// NOTES ////////////////////////////////////////////////////////////////////////////////////////
-// 1. This topping up sections devided into three divisions:Division A, Division B and Division C.
+// 1. This topping up sections devided into three divisions:Division A, Division B.
 //     -Division A: Contains test cases for the  section of the Topping Up main Journey  where user got question "Do you have a smart meter?-No Journey".This section also
 //       contains test cases for the second section of the Topping Up Journey where user got question "Did you get the help you needed? [i.e. Test case 01-06 represent that]".
-//    - Division B: Contains test cases for the  section of the Topping Up Journey where user got question "Do you have a smart meter?-Yes Journey[i.e. Test case 07-10 represent that]"
+//
+//    - Division B: Contains test cases for the  section of the Topping Up Journey where user got question "Do you have a smart meter?-Yes Journey[i.e. Test case 07-12 represent that]"
 // ".
-//      Division C:  This section also contains test cases for the second section of the Topping Up Journey where user got question "Are You unable to top up>- Yes journey.
-//    - Division D: Contains test cases for the second section of the Topping Up Journey where user select "Don't have funds"
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 for (const preIntent of workingHoursPreIntentJourney) {
-    test.describe(`Topping Up (In Hours)--> ${preIntent.description}`, () => {
+    test.describe(`PAYG-TOPPING-UP (In Hours)-->Are_You_Unable_ToTopup_No-->${preIntent.description}`, () => {
         test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, toppingUpUtils }) => {
             test.setTimeout(90000); // Set timeout to 150 seconds for this test
             await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });
@@ -220,10 +219,24 @@ for (const preIntent of workingHoursPreIntentJourney) {
                 await toppingUpUtils.INeedMoreHelpJourney();
             });
         });
+        test(`TOPPING_UP_11`, async ({ toppingUpUtils }) => {
 
+            await test.step(`Verify Section "Are you unable to top up?-No"`, async () => {
+                await toppingUpUtils.areYouUnableToTopUpNoJourney();
+            });
+            await test.step(`Verify Section "Do you have a smart meter?-Yes"`, async () => {
+                await toppingUpUtils.doYouHaveASmartMeterYesJourney();
+            });
+            await test.step(`Verify Section "Are you unsure how to top-up on the OVO Energy app?-No"`, async () => {
+                await toppingUpUtils.areYouUnsureHowToTopUpYesJourney_DoYouNeedHelpNoJourney();
+            });
+            
+        });
 
+        test(`TOPPING_UP_12`, async ({ toppingUpUtils }) => {
 
-
+           // This test case will be written once recieved feedback from project for the query raised in defect sheet.
+            });
 
         ///////////////////////////////////// END OF DIVISION B TEST CASES //////////////////////////////////////
         /////END OF FOOR LOOP  

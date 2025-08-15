@@ -15,7 +15,7 @@ const workingHoursPreIntentJourney = [
   
 // test.describe('Lost Gas Card Journey ( Within Working Hours )', () => {
 for (const preIntent of workingHoursPreIntentJourney) {
-    test.describe(`Meter Key or Card (In Hours)-->Lost Electric Key-->${preIntent.description}`, () => {
+    test.describe(`PAYG-MTR-KEY-OR-CARD(In Hours)-->Lost Electric Key-->${preIntent.description}`, () => {
        test.beforeEach(async ({ webChatUtils, webChatActions, payAsYouGoUtils, meterKeyOrCardUtils }) => {
             test.setTimeout(90000); // Set timeout to 150 seconds for this test
             await test.step(`User Open Webmessenger,Navigate to ${preIntent.description} scenario`, async () => { await webChatActions[preIntent.input](); });

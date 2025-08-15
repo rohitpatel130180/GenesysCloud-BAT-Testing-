@@ -57,13 +57,7 @@ export class ToppingUpUtils {
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
     }
-    async areYouUnableToTopUpYesJourney() {
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Are You unable to top up?"]);
-        await this.webChatUtils.sendMessage("random text");
-        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to top up question"]);
-        await this.webChatUtils.userClickYesButton();
-        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
-    }
+
     async doYouHaveASmartMeterNoJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Do you have a smart meter?"]);
         await this.webChatUtils.sendMessage("random text");
@@ -170,12 +164,18 @@ export class ToppingUpUtils {
         await this.webChatUtils.userClickNoButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
     }
-    async areYouUnsureHowToTopUpYesJourney() {
+    async areYouUnsureHowToTopUpYesJourney_DoYouNeedHelpNoJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Are you unsure how to top up on App?"]);
         await this.webChatUtils.sendMessage("random text");
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to unsure how to top up on App question"]);
         await this.webChatUtils.userClickYesButton();
         expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Just follow these steps"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Do you need help adding a top up?"]);
+        await this.webChatUtils.userClickNoButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(didYouGetHelpYouNeedSection_Data[0]["QUE-Did you get the help you need?"]);
+
     }
     async doYouNeedHelpAddingTopupNoJourney() {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Do you need help adding a top up?"]);
@@ -232,6 +232,32 @@ export class ToppingUpUtils {
         expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(didYouGetHelpYouNeedSection_Data[0]["QUE-Did you get the help you need?"]);
     }
 
+    //////////////////////////////// End of Methods for Section Are you unabel to top-up_No journey" ////////////////////////////////
+    //////////////////////////////// Begin Methods for Section Are you unabel to top-up_Yes journey" ////////////////////////////////
+    async areYouUnableToTopUpYesJourney() {
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Are You unable to top up?"]);
+        await this.webChatUtils.sendMessage("random text");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to top up question"]);
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+    }
+    async doYouHaveASmartMeterNoJourney_AreYouUnableToTopUpYesJourney() {
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Do you have a smart meter?"]);
+        await this.webChatUtils.sendMessage("random text");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to smart meter question"]);
+        await this.webChatUtils.userClickNoButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("No");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-To Register your new KeyCard"]);
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(didYouGetHelpYouNeedSection_Data[0]["QUE-Did you get the help you need?"]);
+    }
+    async doyouHaveASmartMeterYesJourney_AreYouUnableToTopUpYesJourney() { 
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["QUE-Do you have a smart meter?"]);
+        await this.webChatUtils.sendMessage("random text");
+        expect(await this.webChatUtils.verifyChatbotRoboSaidResponse()).toBe(toppingUp_Data[0]["MSG-Sorry Say Yes or NO to smart meter question"]);
+        await this.webChatUtils.userClickYesButton();
+        expect(await this.webChatUtils.verifyChatBotYouSaidResponse()).toBe("Yes");
+    }
 
+    
 
 }
